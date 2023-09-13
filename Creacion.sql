@@ -16,7 +16,7 @@ CREATE TABLE Persona_Telefono (
 );
 
 CREATE TABLE Usuario (
-    NomUsuario VARCHAR(50) NOT NULL,
+    NomUsuario VARCHAR(50) NOT NULL UNIQUE,
     Contrasenia VARCHAR(50) NOT NULL,
     PRIMARY KEY (NomUsuario)
 );
@@ -51,7 +51,7 @@ CREATE TABLE Chofer_Tipo_Libreta (
 
 CREATE TABLE Camion (
     ID BigInt NOT NULL AUTO_INCREMENT,
-    Matricula VARCHAR(7) NOT NULL,
+    Matricula VARCHAR(7) NOT NULL UNIQUE,
     PesoMaximoKg INT NOT NULL,
     PRIMARY KEY (Id)
 );
@@ -111,5 +111,86 @@ CREATE TABLE Chofer_Camion_Entrega (
 );
 
 CREATE TABLE Carga (
-    ID BigInt NOT 
-)
+    ID BigInt NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Carga_Camion (
+    ID_Camion BIGINT NOT NULL,
+    ID_Carga BIGINT NOT NULL,
+    Fecha_Hora_Inicio DATETIME NOT NULL,
+    PRIMARY KEY (ID_Carga),
+    FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
+    FOREIGN KEY (ID_Carga) REFERENCES Carga(ID)
+);
+
+CREATE TABLE Camion_Lleva_Carga (
+    Fecha_Hora_Fin DATETIME NOT NULL,
+    Fecha_Hora_Inicio DATETIME NOT NULL,
+    ID_Carga BIGINT NOT NULL,
+    PRIMARY KEY (ID_Carga) FOREIGN KEY (ID_Carga) REFERENCES Carga_Camion(ID),
+    FOREIGN KEY (Fecha_Hora_Inicio) REFERENCES Carga_Camion(Fecha_Hora_Inicio)
+);
+
+CREATE TABLE Funcionario_Almacen (
+    CI INT(8) NOT NULL,
+    PRIMARY KEY (CI),
+    FOREIGN KEY (CI) REFERENCES Persona(CI)
+);
+
+CREATE TABLE Funcionario_Carga_Camion (
+    Id_Carga BIGINT NOT NULL,
+    CI INT(8) NOT NULL,
+    PRIMARY KEY (Id_Carga, CI),
+    FOREIGN KEY (Id_Carga) REFERENCES Carga_Camion(ID),
+    FOREIGN KEY (CI) REFERENCES Funcionario_Almacen(CI)
+);
+
+CREATE TABLE Plataforma (
+    ID BigInt NOT NULL AUTO_INCREMENT,
+    Numero INT NOT NULL,
+    PRIMARY KEY (ID, Numero),
+    FOREIGN KEY (ID) REFERENCES Almacen(ID)
+);
+
+CREATE TABLE Gerente_Almacen (
+    CI INT(8) NOT NULL,
+    PRIMARY KEY (CI),
+    FOREIGN KEY (CI) REFERENCES Persona(CI)
+);
+
+CREATE TABLE Gerente_Almacen_Almacen (
+    CI INT(8) NOT NULL,
+    ID BIGINT NOT NULL,
+    PRIMARY KEY (CI),
+    FOREIGN KEY (CI) REFERENCES Gerente_Almacen(CI),
+    FOREIGN KEY (ID) REFERENCES Almacen(ID)
+);
+
+CREATE TABLE Camion_Plataforma (
+    ID_Camion BIGINT NOT NULL,
+    ID_Plataforma BIGINT NOT NULL,
+    Numero INT NOT NULL,
+    Fecha_Hora_Llegada DATETIME NOT NULL,
+    PRIMARY KEY (ID_Camion, ID_Plataforma, Numero),
+    FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
+    FOREIGN KEY (ID_Plataforma, Numero) REFERENCES Plataforma(ID, Numero)
+);
+
+CREATE TABLE Camion_Plataforma_Salida (
+    ID_Camion BIGINT NOT NULL,
+    ID_Plataforma BIGINT NOT NULL,
+    Numero INT NOT NULL,
+    Fecha_Hora_Llegada DATETIME NOT NULL,
+    Fecha_Hora_Salida DATETIME NOT NULL,
+    PRIMARY KEY (ID_Camion, ID_Plataforma, Numero, Fecha_Hora_Llegada),
+    FOREIGN KEY (ID_Camion, ID_Plataforma, Numero, Fecha_Hora_Llegada) REFERENCES Camion_Plataforma(ID_Camion, ID_Plataforma, Numero, Fecha_Hora_Llegada)
+);
+
+CREATE TABLE Estante (
+    ID BigInt NOT NULL AUTO_INCREMENT,
+    ID_Almacen BIGINT NOT NULL,
+    PRIMARY KEY (ID, ID_Almacen),
+    FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
+);
+
