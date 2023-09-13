@@ -60,9 +60,9 @@ CREATE TABLE Chofer_Camion (
     CI INT(8) NOT NULL,
     ID BIGINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
-    PRIMARY KEY (CI, Id),
+    PRIMARY KEY (CI, ID),
     FOREIGN KEY (CI) REFERENCES Chofer(CI),
-    FOREIGN KEY (Id) REFERENCES Camion(Id)
+    FOREIGN KEY (ID) REFERENCES Camion(Id)
 );
 
 CREATE TABLE Chofer_Camion_Maneja (
@@ -72,7 +72,7 @@ CREATE TABLE Chofer_Camion_Maneja (
     Fecha_Hora_Fin DATETIME NOT NULL,
     PRIMARY KEY (CI, Id, Fecha_Hora_Inicio),
     FOREIGN KEY (CI) REFERENCES Chofer(CI),
-    FOREIGN KEY (Id) REFERENCES Camion(Id)
+    FOREIGN KEY (ID) REFERENCES Camion(ID)
 );
 
 CREATE TABLE Administrador (
@@ -89,15 +89,27 @@ CREATE TABLE Cliente (
 
 CREATE TABLE Lugar_Entrega (
     ID BigInt NOT NULL AUTO_INCREMENT,
-    Dirección VARCHAR(50) NOT NULL,
+    Direccion VARCHAR(50) NOT NULL,
     PRIMARY KEY (Id)
 );
 
 CREATE TABLE Cliente_Entrega (
     CI INT(8) NOT NULL,
     ID BIGINT NOT NULL,
-    PRIMARY KEY (CI, Id),
+    PRIMARY KEY (CI, ID),
     FOREIGN KEY (CI) REFERENCES Cliente(CI),
+    FOREIGN KEY (ID) REFERENCES Lugar_Entrega(ID)
+);
+
+CREATE TABLE Chofer_Camion_Entrega (
+    CI INT(8) NOT NULL,
+    ID BIGINT NOT NULL,
+    ID_Camion BIGINT NOT NULL,
+    PRIMARY KEY (CI, ID, ID_Camion),
+    FOREIGN KEY (CI, ID_Camion) REFERENCES Chofer_Camion(CI, ID),
     FOREIGN KEY (Id) REFERENCES Lugar_Entrega(Id)
 );
 
+CREATE TABLE Carga (
+    ID BigInt NOT 
+)
