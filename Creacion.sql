@@ -1,3 +1,4 @@
+CREATE DATABASE forksoftware;
 USE forksoftware;
 
 CREATE TABLE Persona (
