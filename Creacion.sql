@@ -1,4 +1,5 @@
 CREATE DATABASE forksoftware;
+
 USE forksoftware;
 
 CREATE TABLE Persona (
@@ -179,10 +180,10 @@ CREATE TABLE Camion_Plataforma (
 CREATE TABLE Camion_Plataforma_Salida (
     ID_Camion SMALLINT NOT NULL,
     ID_Almacen SMALLINT NOT NULL,
-    Numero_Platafroma SMALLINT NOT NULL,
+    Numero_Plataforma SMALLINT NOT NULL,
     Fecha_Hora_Salida DATETIME NOT NULL,
-    PRIMARY KEY (ID_Camion,ID_Almacen,Numero_Plataforma),
-    FOREIGN KEY (ID_Camion,ID_Almacen,Numero_Plataforma) REFERENCES Camion_Plataforma(ID_Camion,ID_Almacen,Numero_Plataforma)
+    PRIMARY KEY (ID_Camion, ID_Almacen, Numero_Plataforma),
+    FOREIGN KEY (ID_Camion, ID_Almacen, Numero_Plataforma) REFERENCES Camion_Plataforma(ID_Camion, ID_Almacen, Numero_Plataforma)
 );
 
 CREATE TABLE Estante (
@@ -240,7 +241,6 @@ CREATE TABLE Paquete_Estante (
     ID_Estante SMALLINT NOT NULL,
     ID_Almacen SMALLINT NOT NULL,
     PRIMARY KEY (ID_Paquete),
-    FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID_Paquete),
+    FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID),
     FOREIGN KEY (ID_Estante, ID_Almacen) REFERENCES Estante(ID, ID_Almacen)
-
 );
