@@ -2,18 +2,19 @@ CREATE DATABASE forksoftware;
 USE forksoftware;
 
 CREATE TABLE Persona (
-    CI INT(8) NOT NULL,
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    CI SMALLINT NOT NULL,
     Nombre VARCHAR(50) NOT NULL,
     Apellido VARCHAR(50) NOT NULL,
     Correo VARCHAR(50) NOT NULL,
-    PRIMARY KEY (CI)
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Persona_Telefono (
-    CI INT(8) NOT NULL,
+    ID SMALLINT NOT NULL,
     Telefono VARCHAR(50) NOT NULL,
-    PRIMARY KEY (CI, Telefono),
-    FOREIGN KEY (CI) REFERENCES Persona(CI)
+    PRIMARY KEY (ID, Telefono),
+    FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
 CREATE TABLE Usuario (
@@ -23,107 +24,106 @@ CREATE TABLE Usuario (
 );
 
 CREATE TABLE Persona_Usuario (
-    CI INT(8) NOT NULL,
+    ID SMALLINT NOT NULL,
     NomUsuario VARCHAR(50) NOT NULL,
-    PRIMARY KEY (CI, NomUsuario),
-    FOREIGN KEY (CI) REFERENCES Persona(CI),
+    PRIMARY KEY (ID, NomUsuario),
+    FOREIGN KEY (ID) REFERENCES Persona(ID),
     FOREIGN KEY (NomUsuario) REFERENCES Usuario(NomUsuario)
 );
 
 CREATE TABLE Chofer (
-    CI INT(8) NOT NULL,
-    PRIMARY KEY (CI),
-    FOREIGN KEY (CI) REFERENCES Persona(CI)
+    ID SMALLINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
 CREATE TABLE Tipo_Libreta (
     Tipo VARCHAR(2) NOT NULL,
-    PesoMaximo INT NOT NULL,
+    PesoMaximoKg SMALLINT NOT NULL,
     PRIMARY KEY (Tipo)
 );
 
 CREATE TABLE Chofer_Tipo_Libreta (
-    CI INT(8) NOT NULL,
+    ID SMALLINT NOT NULL,
     Tipo VARCHAR(2) NOT NULL,
-    PRIMARY KEY (CI, Tipo),
-    FOREIGN KEY (CI) REFERENCES Chofer(CI),
+    PRIMARY KEY (ID, Tipo),
+    FOREIGN KEY (ID) REFERENCES Chofer(ID),
     FOREIGN KEY (Tipo) REFERENCES Tipo_Libreta(Tipo)
 );
 
 CREATE TABLE Camion (
-    ID BigInt NOT NULL AUTO_INCREMENT,
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
     Matricula VARCHAR(7) NOT NULL UNIQUE,
-    PesoMaximoKg INT NOT NULL,
-    PRIMARY KEY (Id)
+    PesoMaximoKg SMALLINT NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Chofer_Camion (
-    CI INT(8) NOT NULL,
-    ID BIGINT NOT NULL,
+    ID_Chofer SMALLINT NOT NULL,
+    ID_Camion SMALLINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
-    PRIMARY KEY (CI, ID),
-    FOREIGN KEY (CI) REFERENCES Chofer(CI),
-    FOREIGN KEY (ID) REFERENCES Camion(Id)
+    PRIMARY KEY (ID_Chofer, ID_Camion),
+    FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
+    FOREIGN KEY (ID_Chofer) REFERENCES Chofer(ID)
 );
 
 CREATE TABLE Chofer_Camion_Maneja (
-    CI INT(8) NOT NULL,
-    ID BIGINT NOT NULL,
+    ID_Chofer SMALLINT NOT NULL,
+    ID_Camion SMALLINT NOT NULL,
     Fecha_Hora_Fin DATETIME NOT NULL,
-    PRIMARY KEY (CI, Id),
-    FOREIGN KEY (CI) REFERENCES Chofer(CI),
-    FOREIGN KEY (ID) REFERENCES Camion(ID)
+    PRIMARY KEY (ID_Chofer, ID_Camion),
+    FOREIGN KEY (ID_Chofer, ID_Camion) REFERENCES Chofer_Camion(ID_Chofer, ID_Camion)
 );
 
 CREATE TABLE Administrador (
-    CI INT(8) NOT NULL,
-    PRIMARY KEY (CI),
-    FOREIGN KEY (CI) REFERENCES Persona(CI)
+    ID SMALLINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
 CREATE TABLE Cliente (
-    CI INT(8) NOT NULL,
-    PRIMARY KEY (CI),
-    FOREIGN KEY (CI) REFERENCES Persona(CI)
+    ID SMALLINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
 CREATE TABLE Lugar_Entrega (
-    ID BigInt NOT NULL AUTO_INCREMENT,
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
     Direccion VARCHAR(50) NOT NULL,
-    PRIMARY KEY (Id)
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Almacen (
-    ID BigInt NOT NULL AUTO_INCREMENT,
-    PRiMARY KEY (Id),
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    PRiMARY KEY (ID),
     FOREIGN KEY (ID) REFERENCES Lugar_Entrega(ID)
 );
 
 CREATE TABLE Cliente_Entrega (
-    CI INT(8) NOT NULL,
-    ID BIGINT NOT NULL,
-    PRIMARY KEY (CI, ID),
-    FOREIGN KEY (CI) REFERENCES Cliente(CI),
-    FOREIGN KEY (ID) REFERENCES Lugar_Entrega(ID)
+    ID_Cliente SMALLINT NOT NULL,
+    ID_Lugar_Entrega SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Cliente, ID_Lugar_Entrega),
+    FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID),
+    FOREIGN KEY (ID_Lugar_Entrega) REFERENCES Lugar_Entrega(ID)
 );
 
 CREATE TABLE Chofer_Camion_Entrega (
-    CI INT(8) NOT NULL,
-    ID BIGINT NOT NULL,
-    ID_Camion BIGINT NOT NULL,
-    PRIMARY KEY (CI, ID, ID_Camion),
-    FOREIGN KEY (CI, ID_Camion) REFERENCES Chofer_Camion(CI, ID),
-    FOREIGN KEY (Id) REFERENCES Lugar_Entrega(Id)
+    ID_Chofer SMALLINT NOT NULL,
+    ID_Lugar_Entrega SMALLINT NOT NULL,
+    ID_Camion SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Chofer, ID_Lugar_Entrega, ID_Camion),
+    FOREIGN KEY (ID_Chofer, ID_Camion) REFERENCES Chofer_Camion(ID_Chofer, ID_Camion),
+    FOREIGN KEY (ID_Lugar_Entrega) REFERENCES Lugar_Entrega(ID)
 );
 
 CREATE TABLE Carga (
-    ID BigInt NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (Id)
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Carga_Camion (
-    ID_Camion BIGINT NOT NULL,
-    ID_Carga BIGINT NOT NULL,
+    ID_Camion SMALLINT NOT NULL UNIQUE,
+    ID_Carga SMALLINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
     PRIMARY KEY (ID_Carga),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
@@ -131,112 +131,116 @@ CREATE TABLE Carga_Camion (
 );
 
 CREATE TABLE Camion_Lleva_Carga (
-    ID_Carga BIGINT NOT NULL,
+    ID_Carga SMALLINT NOT NULL,
     Fecha_Hora_Fin DATETIME NOT NULL,
     PRIMARY KEY (ID_Carga),
     FOREIGN KEY (ID_Carga) REFERENCES Carga_Camion(ID_Carga)
 );
 
 CREATE TABLE Funcionario_Almacen (
-    CI INT(8) NOT NULL,
-    PRIMARY KEY (CI),
-    FOREIGN KEY (CI) REFERENCES Persona(CI)
+    ID SMALLINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
 CREATE TABLE Funcionario_Carga_Camion (
-    Id_Carga BIGINT NOT NULL,
-    CI INT(8) NOT NULL,
-    PRIMARY KEY (Id_Carga, CI),
-    FOREIGN KEY (Id_Carga) REFERENCES Carga_Camion(ID_Carga),
-    FOREIGN KEY (CI) REFERENCES Funcionario_Almacen(CI)
+    ID_Carga SMALLINT NOT NULL,
+    ID_Funcionario SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Carga, ID_Funcionario),
+    FOREIGN KEY (ID_Carga) REFERENCES Carga_Camion(ID_Carga),
+    FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID)
 );
 
 CREATE TABLE Plataforma (
-    ID BigInt NOT NULL AUTO_INCREMENT,
-    Numero INT NOT NULL,
-    PRIMARY KEY (ID, Numero),
-    FOREIGN KEY (ID) REFERENCES Almacen(ID)
+    ID_Almacen SMALLINT NOT NULL AUTO_INCREMENT,
+    Numero SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Almacen, Numero),
+    FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
 );
 
 CREATE TABLE Gerente_Almacen (
-    CI INT(8) NOT NULL,
-    PRIMARY KEY (CI),
-    FOREIGN KEY (CI) REFERENCES Persona(CI)
-);
-
-CREATE TABLE Gerente_Almacen_Almacen (
-    CI INT(8) NOT NULL,
-    ID BIGINT NOT NULL,
-    PRIMARY KEY (CI),
-    FOREIGN KEY (CI) REFERENCES Gerente_Almacen(CI),
-    FOREIGN KEY (ID) REFERENCES Almacen(ID)
+    ID_Gerente SMALLINT NOT NULL,
+    ID_Almacen SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Gerente),
+    FOREIGN KEY (ID_Gerente) REFERENCES Persona(ID),
+    FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
 );
 
 CREATE TABLE Camion_Plataforma (
-    ID_Camion BIGINT NOT NULL,
-    ID_Plataforma BIGINT NOT NULL,
-    Numero INT NOT NULL,
+    ID_Camion SMALLINT NOT NULL,
+    ID_Almacen SMALLINT NOT NULL,
+    Numero_Plataforma SMALLINT NOT NULL,
     Fecha_Hora_Llegada DATETIME NOT NULL,
-    PRIMARY KEY (ID_Camion, ID_Plataforma, Numero),
+    PRIMARY KEY (ID_Camion, ID_Almacen, Numero_Plataforma),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
-    FOREIGN KEY (ID_Plataforma, Numero) REFERENCES Plataforma(ID, Numero)
+    FOREIGN KEY (ID_Almacen, Numero_Plataforma) REFERENCES Plataforma(ID_Almacen, Numero)
 );
 
 CREATE TABLE Camion_Plataforma_Salida (
-    ID_Camion BIGINT NOT NULL,
-    ID_Plataforma BIGINT NOT NULL,
-    Numero INT NOT NULL,
+    ID_Camion SMALLINT NOT NULL,
+    ID_Almacen SMALLINT NOT NULL,
+    Numero_Platafroma SMALLINT NOT NULL,
     Fecha_Hora_Salida DATETIME NOT NULL,
-    PRIMARY KEY (ID_Camion,ID_Plataforma,Numero),
-    FOREIGN KEY (ID_Camion,ID_Plataforma,Numero) REFERENCES Camion_Plataforma(ID_Camion,ID_Plataforma,Numero)
+    PRIMARY KEY (ID_Camion,ID_Almacen,Numero_Plataforma),
+    FOREIGN KEY (ID_Camion,ID_Almacen,Numero_Plataforma) REFERENCES Camion_Plataforma(ID_Camion,ID_Almacen,Numero_Plataforma)
 );
 
 CREATE TABLE Estante (
-    ID BigInt NOT NULL AUTO_INCREMENT,
-    ID_Almacen BIGINT NOT NULL,
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    ID_Almacen SMALLINT NOT NULL,
     PRIMARY KEY (ID, ID_Almacen),
     FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
 );
 
 CREATE TABLE Lote (
-    ID BigInt NOT NULL AUTO_INCREMENT,
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
     Descripcion VARCHAR(50) NULL,
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE Paquete (
-    ID BigInt NOT NULL AUTO_INCREMENT,
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
     Descripcion VARCHAR(50) NULL,
-    Peso_Kg INT NOT NULL,
+    Peso_Kg SMALLINT NOT NULL,
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE Paquete_en_transito (
-    ID BigInt NOT NULL AUTO_INCREMENT,
+    ID SMALLINT NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID) REFERENCES Paquete(ID)
 );
 
 CREATE TABLE Lote_Carga (
-    ID_Lote BIGINT NOT NULL,
-    ID_Carga BIGINT NOT NULL,
+    ID_Lote SMALLINT NOT NULL,
+    ID_Carga SMALLINT NOT NULL,
     PRIMARY KEY (ID_Lote),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID),
     FOREIGN KEY (ID_Carga) REFERENCES Carga(ID)
 );
 
 CREATE TABLE Forma (
-    ID_Lote BigInt NOT NULL AUTO_INCREMENT,
-    ID_Paquete BigInt NOT NULL,
+    ID_Lote SMALLINT NOT NULL,
+    ID_Paquete SMALLINT NOT NULL,
     PRIMARY KEY (ID_Paquete),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID),
     FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID)
 );
 
 CREATE TABLE Funcionario_Lote_Paquete (
-    CI INT(8) NOT NULL,
-    ID_Paquete BIGINT NOT NULL,
+    ID_Funcionario SMALLINT NOT NULL,
+    ID_Paquete SMALLINT NOT NULL,
     PRIMARY KEY (ID_Paquete),
-    FOREIGN KEY (CI) REFERENCES Funcionario_Almacen(CI),
+    FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID),
     FOREIGN KEY (ID_Paquete) REFERENCES Forma(ID_Paquete)
+);
+
+CREATE TABLE Paquete_Estante (
+    ID_Paquete SMALLINT NOT NULL,
+    ID_Estante SMALLINT NOT NULL,
+    ID_Almacen SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Paquete),
+    FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID_Paquete),
+    FOREIGN KEY (ID_Estante, ID_Almacen) REFERENCES Estante(ID, ID_Almacen)
+
 );
