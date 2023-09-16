@@ -286,9 +286,12 @@ CREATE TABLE IF NOT EXISTS `lugar_entrega` (
 -- Volcando estructura para tabla forksoftware.paquete
 CREATE TABLE IF NOT EXISTS `paquete` (
   `ID` smallint(6) NOT NULL AUTO_INCREMENT,
+  `ID_Cliente` smallint(6) NOT NULL,
   `Descripcion` varchar(50) DEFAULT NULL,
   `Peso_Kg` smallint(6) NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `ID_Cliente` (`ID_Cliente`),
+  CONSTRAINT `paquete_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- La exportación de datos fue deseleccionada.
