@@ -201,9 +201,11 @@ CREATE TABLE Lote (
 
 CREATE TABLE Paquete (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
+    ID_Cliente SMALLINT NOT NULL,
     Descripcion VARCHAR(50) NULL,
     Peso_Kg SMALLINT NOT NULL,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID)
 );
 
 CREATE TABLE Paquete_en_transito (
