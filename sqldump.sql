@@ -48,12 +48,12 @@ CREATE TABLE IF NOT EXISTS `camion` (
 
 -- La exportación de datos fue deseleccionada.
 
--- Volcando estructura para tabla forksoftware.camion_lleva_carga
-CREATE TABLE IF NOT EXISTS `camion_lleva_carga` (
-  `ID_Carga` smallint(6) NOT NULL,
+-- Volcando estructura para tabla forksoftware.camion_lleva_lote
+CREATE TABLE IF NOT EXISTS `camion_lleva_lote` (
+  `ID_Lote` smallint(6) NOT NULL,
   `Fecha_Hora_Fin` datetime NOT NULL,
-  PRIMARY KEY (`ID_Carga`),
-  CONSTRAINT `camion_lleva_carga_ibfk_1` FOREIGN KEY (`ID_Carga`) REFERENCES `carga_camion` (`ID_Carga`)
+  PRIMARY KEY (`ID_Lote`),
+  CONSTRAINT `camion_lleva_lote_ibfk_1` FOREIGN KEY (`ID_Lote`) REFERENCES `lote_camion` (`ID_Lote`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- La exportación de datos fue deseleccionada.
@@ -80,27 +80,6 @@ CREATE TABLE IF NOT EXISTS `camion_plataforma_salida` (
   `Fecha_Hora_Salida` datetime NOT NULL,
   PRIMARY KEY (`ID_Camion`,`ID_Almacen`,`Numero_Plataforma`),
   CONSTRAINT `camion_plataforma_salida_ibfk_1` FOREIGN KEY (`ID_Camion`, `ID_Almacen`, `Numero_Plataforma`) REFERENCES `camion_plataforma` (`ID_Camion`, `ID_Almacen`, `Numero_Plataforma`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- La exportación de datos fue deseleccionada.
-
--- Volcando estructura para tabla forksoftware.carga
-CREATE TABLE IF NOT EXISTS `carga` (
-  `ID` smallint(6) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- La exportación de datos fue deseleccionada.
-
--- Volcando estructura para tabla forksoftware.carga_camion
-CREATE TABLE IF NOT EXISTS `carga_camion` (
-  `ID_Camion` smallint(6) NOT NULL,
-  `ID_Carga` smallint(6) NOT NULL,
-  `Fecha_Hora_Inicio` datetime NOT NULL,
-  PRIMARY KEY (`ID_Carga`),
-  UNIQUE KEY `ID_Camion` (`ID_Camion`),
-  CONSTRAINT `carga_camion_ibfk_1` FOREIGN KEY (`ID_Camion`) REFERENCES `camion` (`ID`),
-  CONSTRAINT `carga_camion_ibfk_2` FOREIGN KEY (`ID_Carga`) REFERENCES `carga` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- La exportación de datos fue deseleccionada.
@@ -173,18 +152,6 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 
 -- La exportación de datos fue deseleccionada.
 
--- Volcando estructura para tabla forksoftware.cliente_entrega
-CREATE TABLE IF NOT EXISTS `cliente_entrega` (
-  `ID_Cliente` smallint(6) NOT NULL,
-  `ID_Lugar_Entrega` smallint(6) NOT NULL,
-  PRIMARY KEY (`ID_Cliente`,`ID_Lugar_Entrega`),
-  KEY `ID_Lugar_Entrega` (`ID_Lugar_Entrega`),
-  CONSTRAINT `cliente_entrega_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID`),
-  CONSTRAINT `cliente_entrega_ibfk_2` FOREIGN KEY (`ID_Lugar_Entrega`) REFERENCES `lugar_entrega` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- La exportación de datos fue deseleccionada.
-
 -- Volcando estructura para tabla forksoftware.estante
 CREATE TABLE IF NOT EXISTS `estante` (
   `ID` smallint(6) NOT NULL AUTO_INCREMENT,
@@ -200,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `estante` (
 CREATE TABLE IF NOT EXISTS `forma` (
   `ID_Lote` smallint(6) NOT NULL,
   `ID_Paquete` smallint(6) NOT NULL,
+  `Estado` varchar(50) NOT NULL,
   PRIMARY KEY (`ID_Paquete`),
   KEY `ID_Lote` (`ID_Lote`),
   CONSTRAINT `forma_ibfk_1` FOREIGN KEY (`ID_Lote`) REFERENCES `lote` (`ID`),
@@ -217,26 +185,26 @@ CREATE TABLE IF NOT EXISTS `funcionario_almacen` (
 
 -- La exportación de datos fue deseleccionada.
 
--- Volcando estructura para tabla forksoftware.funcionario_carga_camion
-CREATE TABLE IF NOT EXISTS `funcionario_carga_camion` (
-  `ID_Carga` smallint(6) NOT NULL,
-  `ID_Funcionario` smallint(6) NOT NULL,
-  PRIMARY KEY (`ID_Carga`,`ID_Funcionario`),
-  KEY `ID_Funcionario` (`ID_Funcionario`),
-  CONSTRAINT `funcionario_carga_camion_ibfk_1` FOREIGN KEY (`ID_Carga`) REFERENCES `carga_camion` (`ID_Carga`),
-  CONSTRAINT `funcionario_carga_camion_ibfk_2` FOREIGN KEY (`ID_Funcionario`) REFERENCES `funcionario_almacen` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- La exportación de datos fue deseleccionada.
-
--- Volcando estructura para tabla forksoftware.funcionario_lote_paquete
-CREATE TABLE IF NOT EXISTS `funcionario_lote_paquete` (
+-- Volcando estructura para tabla forksoftware.funcionario_forma
+CREATE TABLE IF NOT EXISTS `funcionario_forma` (
   `ID_Funcionario` smallint(6) NOT NULL,
   `ID_Paquete` smallint(6) NOT NULL,
   PRIMARY KEY (`ID_Paquete`),
   KEY `ID_Funcionario` (`ID_Funcionario`),
-  CONSTRAINT `funcionario_lote_paquete_ibfk_1` FOREIGN KEY (`ID_Funcionario`) REFERENCES `funcionario_almacen` (`ID`),
-  CONSTRAINT `funcionario_lote_paquete_ibfk_2` FOREIGN KEY (`ID_Paquete`) REFERENCES `forma` (`ID_Paquete`)
+  CONSTRAINT `funcionario_forma_ibfk_1` FOREIGN KEY (`ID_Funcionario`) REFERENCES `funcionario_almacen` (`ID`),
+  CONSTRAINT `funcionario_forma_ibfk_2` FOREIGN KEY (`ID_Paquete`) REFERENCES `paquete` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla forksoftware.funcionario_paquete_estante
+CREATE TABLE IF NOT EXISTS `funcionario_paquete_estante` (
+  `ID_Funcionario` smallint(6) NOT NULL,
+  `ID_Paquete` smallint(6) NOT NULL,
+  PRIMARY KEY (`ID_Paquete`),
+  KEY `ID_Funcionario` (`ID_Funcionario`),
+  CONSTRAINT `funcionario_paquete_estante_ibfk_1` FOREIGN KEY (`ID_Funcionario`) REFERENCES `funcionario_almacen` (`ID`),
+  CONSTRAINT `funcionario_paquete_estante_ibfk_2` FOREIGN KEY (`ID_Paquete`) REFERENCES `paquete_estante` (`ID_Paquete`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- La exportación de datos fue deseleccionada.
@@ -253,6 +221,42 @@ CREATE TABLE IF NOT EXISTS `gerente_almacen` (
 
 -- La exportación de datos fue deseleccionada.
 
+-- Volcando estructura para tabla forksoftware.gerente_forma
+CREATE TABLE IF NOT EXISTS `gerente_forma` (
+  `ID_Gerente` smallint(6) NOT NULL,
+  `ID_Paquete` smallint(6) NOT NULL,
+  PRIMARY KEY (`ID_Paquete`),
+  KEY `ID_Gerente` (`ID_Gerente`),
+  CONSTRAINT `gerente_forma_ibfk_1` FOREIGN KEY (`ID_Gerente`) REFERENCES `gerente_almacen` (`ID_Gerente`),
+  CONSTRAINT `gerente_forma_ibfk_2` FOREIGN KEY (`ID_Paquete`) REFERENCES `forma` (`ID_Paquete`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla forksoftware.gerente_lote
+CREATE TABLE IF NOT EXISTS `gerente_lote` (
+  `ID_Gerente` smallint(6) NOT NULL,
+  `ID_Lote` smallint(6) NOT NULL,
+  PRIMARY KEY (`ID_Lote`),
+  KEY `ID_Gerente` (`ID_Gerente`),
+  CONSTRAINT `gerente_lote_ibfk_1` FOREIGN KEY (`ID_Gerente`) REFERENCES `gerente_almacen` (`ID_Gerente`),
+  CONSTRAINT `gerente_lote_ibfk_2` FOREIGN KEY (`ID_Lote`) REFERENCES `lote` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla forksoftware.gerente_paquete
+CREATE TABLE IF NOT EXISTS `gerente_paquete` (
+  `ID_Gerente` smallint(6) NOT NULL,
+  `ID_Paquete` smallint(6) NOT NULL,
+  PRIMARY KEY (`ID_Paquete`),
+  KEY `ID_Gerente` (`ID_Gerente`),
+  CONSTRAINT `gerente_paquete_ibfk_1` FOREIGN KEY (`ID_Gerente`) REFERENCES `gerente_almacen` (`ID_Gerente`),
+  CONSTRAINT `gerente_paquete_ibfk_2` FOREIGN KEY (`ID_Paquete`) REFERENCES `paquete` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
 -- Volcando estructura para tabla forksoftware.lote
 CREATE TABLE IF NOT EXISTS `lote` (
   `ID` smallint(6) NOT NULL AUTO_INCREMENT,
@@ -262,14 +266,15 @@ CREATE TABLE IF NOT EXISTS `lote` (
 
 -- La exportación de datos fue deseleccionada.
 
--- Volcando estructura para tabla forksoftware.lote_carga
-CREATE TABLE IF NOT EXISTS `lote_carga` (
+-- Volcando estructura para tabla forksoftware.lote_camion
+CREATE TABLE IF NOT EXISTS `lote_camion` (
+  `ID_Camion` smallint(6) NOT NULL,
   `ID_Lote` smallint(6) NOT NULL,
-  `ID_Carga` smallint(6) NOT NULL,
+  `Fecha_Hora_Inicio` datetime NOT NULL,
   PRIMARY KEY (`ID_Lote`),
-  KEY `ID_Carga` (`ID_Carga`),
-  CONSTRAINT `lote_carga_ibfk_1` FOREIGN KEY (`ID_Lote`) REFERENCES `lote` (`ID`),
-  CONSTRAINT `lote_carga_ibfk_2` FOREIGN KEY (`ID_Carga`) REFERENCES `carga` (`ID`)
+  UNIQUE KEY `ID_Camion` (`ID_Camion`),
+  CONSTRAINT `lote_camion_ibfk_1` FOREIGN KEY (`ID_Camion`) REFERENCES `camion` (`ID`),
+  CONSTRAINT `lote_camion_ibfk_2` FOREIGN KEY (`ID_Lote`) REFERENCES `lote` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- La exportación de datos fue deseleccionada.
@@ -289,18 +294,10 @@ CREATE TABLE IF NOT EXISTS `paquete` (
   `ID_Cliente` smallint(6) NOT NULL,
   `Descripcion` varchar(50) DEFAULT NULL,
   `Peso_Kg` smallint(6) NOT NULL,
+  `Estado` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_Cliente` (`ID_Cliente`),
   CONSTRAINT `paquete_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- La exportación de datos fue deseleccionada.
-
--- Volcando estructura para tabla forksoftware.paquete_en_transito
-CREATE TABLE IF NOT EXISTS `paquete_en_transito` (
-  `ID` smallint(6) NOT NULL,
-  PRIMARY KEY (`ID`),
-  CONSTRAINT `paquete_en_transito_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `paquete` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- La exportación de datos fue deseleccionada.
