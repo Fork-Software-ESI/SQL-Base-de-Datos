@@ -18,6 +18,12 @@ CREATE TABLE Persona_Telefono (
     FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
+CREATE TABLE Cliente (
+    ID SMALLINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID) REFERENCES Persona(ID)
+);
+
 CREATE TABLE Usuario (
     NomUsuario VARCHAR(50) NOT NULL UNIQUE,
     Contrasenia VARCHAR(50) NOT NULL,
@@ -82,11 +88,6 @@ CREATE TABLE Administrador (
     FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
-CREATE TABLE Cliente (
-    ID SMALLINT NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (ID) REFERENCES Persona(ID)
-);
 
 CREATE TABLE Lugar_Entrega (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
@@ -100,13 +101,6 @@ CREATE TABLE Almacen (
     FOREIGN KEY (ID) REFERENCES Lugar_Entrega(ID)
 );
 
-CREATE TABLE Cliente_Entrega (
-    ID_Cliente SMALLINT NOT NULL,
-    ID_Lugar_Entrega SMALLINT NOT NULL,
-    PRIMARY KEY (ID_Cliente, ID_Lugar_Entrega),
-    FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID),
-    FOREIGN KEY (ID_Lugar_Entrega) REFERENCES Lugar_Entrega(ID)
-);
 
 CREATE TABLE Chofer_Camion_Entrega (
     ID_Chofer SMALLINT NOT NULL,
@@ -117,39 +111,32 @@ CREATE TABLE Chofer_Camion_Entrega (
     FOREIGN KEY (ID_Lugar_Entrega) REFERENCES Lugar_Entrega(ID)
 );
 
-CREATE TABLE Carga (
+CREATE TABLE Lote (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
+    Descripcion VARCHAR(50) NULL,
     PRIMARY KEY (ID)
 );
 
-CREATE TABLE Carga_Camion (
+CREATE TABLE Lote_Camion (
     ID_Camion SMALLINT NOT NULL UNIQUE,
-    ID_Carga SMALLINT NOT NULL,
+    ID_Lote SMALLINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
-    PRIMARY KEY (ID_Carga),
+    PRIMARY KEY (ID_Lote),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
-    FOREIGN KEY (ID_Carga) REFERENCES Carga(ID)
+    FOREIGN KEY (ID_Lote) REFERENCES Lote(ID)
 );
 
-CREATE TABLE Camion_Lleva_Carga (
-    ID_Carga SMALLINT NOT NULL,
+CREATE TABLE Camion_Lleva_Lote (
+    ID_Lote SMALLINT NOT NULL,
     Fecha_Hora_Fin DATETIME NOT NULL,
-    PRIMARY KEY (ID_Carga),
-    FOREIGN KEY (ID_Carga) REFERENCES Carga_Camion(ID_Carga)
+    PRIMARY KEY (ID_Lote),
+    FOREIGN KEY (ID_Lote) REFERENCES Lote_Camion(ID_Lote)
 );
 
 CREATE TABLE Funcionario_Almacen (
     ID SMALLINT NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID) REFERENCES Persona(ID)
-);
-
-CREATE TABLE Funcionario_Carga_Camion (
-    ID_Carga SMALLINT NOT NULL,
-    ID_Funcionario SMALLINT NOT NULL,
-    PRIMARY KEY (ID_Carga, ID_Funcionario),
-    FOREIGN KEY (ID_Carga) REFERENCES Carga_Camion(ID_Carga),
-    FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID)
 );
 
 CREATE TABLE Plataforma (
@@ -193,50 +180,25 @@ CREATE TABLE Estante (
     FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
 );
 
-CREATE TABLE Lote (
-    ID SMALLINT NOT NULL AUTO_INCREMENT,
-    Descripcion VARCHAR(50) NULL,
-    PRIMARY KEY (ID)
-);
-
 CREATE TABLE Paquete (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
     ID_Cliente SMALLINT NOT NULL,
     Descripcion VARCHAR(50) NULL,
     Peso_Kg SMALLINT NOT NULL,
+    Estado VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID)
-);
-
-CREATE TABLE Paquete_en_transito (
-    ID SMALLINT NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (ID) REFERENCES Paquete(ID)
-);
-
-CREATE TABLE Lote_Carga (
-    ID_Lote SMALLINT NOT NULL,
-    ID_Carga SMALLINT NOT NULL,
-    PRIMARY KEY (ID_Lote),
-    FOREIGN KEY (ID_Lote) REFERENCES Lote(ID),
-    FOREIGN KEY (ID_Carga) REFERENCES Carga(ID)
 );
 
 CREATE TABLE Forma (
     ID_Lote SMALLINT NOT NULL,
     ID_Paquete SMALLINT NOT NULL,
+    Estado VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID_Paquete),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID),
     FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID)
 );
 
-CREATE TABLE Funcionario_Lote_Paquete (
-    ID_Funcionario SMALLINT NOT NULL,
-    ID_Paquete SMALLINT NOT NULL,
-    PRIMARY KEY (ID_Paquete),
-    FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID),
-    FOREIGN KEY (ID_Paquete) REFERENCES Forma(ID_Paquete)
-);
 
 CREATE TABLE Paquete_Estante (
     ID_Paquete SMALLINT NOT NULL,
@@ -245,4 +207,44 @@ CREATE TABLE Paquete_Estante (
     PRIMARY KEY (ID_Paquete),
     FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID),
     FOREIGN KEY (ID_Estante, ID_Almacen) REFERENCES Estante(ID, ID_Almacen)
+);
+
+CREATE TABLE Gerente_Paquete (
+    ID_Gerente SMALLINT NOT NULL,
+    ID_Paquete SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Paquete),
+    FOREIGN KEY (ID_Gerente) REFERENCES Gerente_Almacen(ID_Gerente),
+    FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID)
+);
+
+CREATE TABLE Gerente_Forma (
+    ID_Gerente SMALLINT NOT NULL,
+    ID_Paquete SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Paquete),
+    FOREIGN KEY (ID_Gerente) REFERENCES Gerente_Almacen(ID_Gerente),
+    FOREIGN KEY (ID_Paquete) REFERENCES Forma(ID_Paquete)
+);
+
+CREATE TABLE Gerente_Lote (
+    ID_Gerente SMALLINT NOT NULL,
+    ID_Lote SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Lote),
+    FOREIGN KEY (ID_Gerente) REFERENCES Gerente_Almacen(ID_Gerente),
+    FOREIGN KEY (ID_Lote) REFERENCES Lote(ID)
+);
+
+CREATE TABLE Funcionario_Forma (
+    ID_Funcionario SMALLINT NOT NULL,
+    ID_Paquete SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Paquete),
+    FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID),
+    FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID)
+);
+
+CREATE TABLE Funcionario_Paquete_Estante(
+    ID_Funcionario SMALLINT NOT NULL,
+    ID_Paquete SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Paquete),
+    FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID),
+    FOREIGN KEY (ID_Paquete) REFERENCES Paquete_Estante(ID_Paquete)
 );
