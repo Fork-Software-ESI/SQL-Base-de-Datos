@@ -1,12 +1,12 @@
 USE forksoftware;
 
-CREATE USER 'administrador'@'%' IDENTIFIED BY 'navp3-FS';
-CREATE USER 'gerente_almacen'@'%' IDENTIFIED BY 'a3bkf-FS';
-CREATE USER 'funcionario_almacen'@'%' IDENTIFIED BY '45kfl-FS';
-CREATE USER 'chofer'@'%' IDENTIFIED BY '4k3f5-FS';
+CREATE USER IF NOT EXISTS 'administrador'@'%' IDENTIFIED BY 'navp3-FS';
+CREATE USER IF NOT EXISTS 'gerente_almacen'@'%' IDENTIFIED BY 'a3bkf-FS';
+CREATE USER IF NOT EXISTS 'funcionario_almacen'@'%' IDENTIFIED BY '45kfl-FS';
+CREATE USER IF NOT EXISTS 'chofer'@'%' IDENTIFIED BY '4k3f5-FS';
 
 /* ADMINISTRADOR */
-GRANT ALL PRIVILEGES ON forksoftware TO 'administrador'@'%';
+GRANT ALL PRIVILEGES ON forksoftware.* TO 'administrador'@'%';
 
 /* FUNCIONARIO (SIN PERMISOS DE DELETE PORQUE SOLO SE MANEJA BAJA LÓGICA, EN CAMBIO UPDATE PARA EDITAR DELETED_AT) */
 GRANT SELECT, INSERT, UPDATE ON forksoftware.paquete_estante TO 'funcionario_almacen'@'%';

@@ -4,7 +4,7 @@ USE forksoftware;
 
 CREATE TABLE Persona (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
-    CI SMALLINT NOT NULL,
+    CI INT NOT NULL,
     Nombre VARCHAR(50) NOT NULL,
     Apellido VARCHAR(50) NOT NULL,
     Correo VARCHAR(50) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Cliente (
 
 CREATE TABLE Usuario (
     NomUsuario VARCHAR(50) NOT NULL UNIQUE,
-    Contrasenia VARCHAR(50) NOT NULL,
+    Contrasenia VARCHAR NOT NULL,
     PRIMARY KEY (NomUsuario)
 );
 
@@ -88,33 +88,24 @@ CREATE TABLE Administrador (
     FOREIGN KEY (ID) REFERENCES Persona(ID)
 );
 
-
 CREATE TABLE Almacen (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
-    PRiMARY KEY (ID),
-    FOREIGN KEY (ID) REFERENCES Lugar_Entrega(ID)
-);
-
-
-CREATE TABLE Chofer_Camion_Entrega (
-    ID_Chofer SMALLINT NOT NULL,
-    ID_Lugar_Entrega SMALLINT NOT NULL,
-    ID_Camion SMALLINT NOT NULL,
-    PRIMARY KEY (ID_Chofer, ID_Lugar_Entrega, ID_Camion),
-    FOREIGN KEY (ID_Chofer, ID_Camion) REFERENCES Chofer_Camion(ID_Chofer, ID_Camion),
-    FOREIGN KEY (ID_Lugar_Entrega) REFERENCES Lugar_Entrega(ID)
+    Direccion VARCHAR(50) NOT NULL,
+    PRiMARY KEY (ID)
 );
 
 CREATE TABLE Lote (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
     Descripcion VARCHAR(50) NULL,
+    Peso_Kg SMALLINT NOT NULL,
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE Lote_Camion (
-    ID_Camion SMALLINT NOT NULL UNIQUE,
+    ID_Camion SMALLINT NOT NULL,
     ID_Lote SMALLINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
+    Estado VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID_Lote),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID)
@@ -134,9 +125,9 @@ CREATE TABLE Funcionario_Almacen (
 );
 
 CREATE TABLE Plataforma (
-    ID_Almacen SMALLINT NOT NULL AUTO_INCREMENT,
-    Numero SMALLINT NOT NULL,
-    PRIMARY KEY (ID_Almacen, Numero),
+    Numero SMALLINT NOT NULL AUTO_INCREMENT,
+    ID_Almacen SMALLINT NOT NULL,
+    PRIMARY KEY (Numero, ID_Almacen),
     FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
 );
 
@@ -192,7 +183,6 @@ CREATE TABLE Forma (
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID),
     FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID)
 );
-
 
 CREATE TABLE Paquete_Estante (
     ID_Paquete SMALLINT NOT NULL,
