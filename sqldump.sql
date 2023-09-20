@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   CONSTRAINT `administrador_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `persona` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla forksoftware.administrador: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.administrador: ~0 rows (aproximadamente)
 INSERT INTO `administrador` (`ID`) VALUES
 	(10);
 
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `funcionario_paquete_estante` (
   CONSTRAINT `funcionario_paquete_estante_ibfk_2` FOREIGN KEY (`ID_Paquete`) REFERENCES `paquete_estante` (`ID_Paquete`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla forksoftware.funcionario_paquete_estante: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.funcionario_paquete_estante: ~0 rows (aproximadamente)
 INSERT INTO `funcionario_paquete_estante` (`ID_Funcionario`, `ID_Paquete`) VALUES
 	(3, 1);
 
@@ -371,19 +371,20 @@ CREATE TABLE IF NOT EXISTS `paquete` (
   `Descripcion` varchar(50) DEFAULT NULL,
   `Peso_Kg` smallint(6) NOT NULL,
   `Estado` varchar(50) NOT NULL,
+  `Destino` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_Cliente` (`ID_Cliente`),
   CONSTRAINT `paquete_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla forksoftware.paquete: ~6 rows (aproximadamente)
-INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `Estado`) VALUES
-	(1, 1, NULL, 1, 'En almacen'),
-	(2, 1, 'fragil', 2, 'En almacen'),
-	(3, 1, NULL, 5, 'En almacen'),
-	(4, 2, 'quimicos', 2, 'En transito'),
-	(5, 2, NULL, 15, 'En transito'),
-	(6, 11, NULL, 30, 'Entregado');
+INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `Estado`, `Destino`) VALUES
+	(1, 1, NULL, 1, 'En almacen', 'Charrua 2263'),
+	(2, 1, 'fragil', 2, 'En almacen', 'Luisa Caceres 3600'),
+	(3, 1, NULL, 5, 'En almacen', 'Carlos Anaya 2963'),
+	(4, 2, 'quimicos', 2, 'En transito', 'Cagancha 2063'),
+	(5, 2, NULL, 15, 'En transito', 'Miguelete 2259'),
+	(6, 11, NULL, 30, 'Entregado', 'Barroso 3725');
 
 -- Volcando estructura para tabla forksoftware.paquete_estante
 CREATE TABLE IF NOT EXISTS `paquete_estante` (
@@ -396,7 +397,7 @@ CREATE TABLE IF NOT EXISTS `paquete_estante` (
   CONSTRAINT `paquete_estante_ibfk_2` FOREIGN KEY (`ID_Estante`, `ID_Almacen`) REFERENCES `estante` (`ID`, `ID_Almacen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla forksoftware.paquete_estante: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.paquete_estante: ~0 rows (aproximadamente)
 INSERT INTO `paquete_estante` (`ID_Paquete`, `ID_Estante`, `ID_Almacen`) VALUES
 	(1, 2, 1);
 
@@ -521,7 +522,7 @@ INSERT INTO `tipo_libreta` (`Tipo`, `PesoMaximoKg`) VALUES
 -- Volcando estructura para tabla forksoftware.usuario
 CREATE TABLE IF NOT EXISTS `usuario` (
   `NomUsuario` varchar(50) NOT NULL,
-  `Contrasenia` varchar(500) NOT NULL,
+  `Contrasenia` varchar(255) NOT NULL,
   PRIMARY KEY (`NomUsuario`),
   UNIQUE KEY `NomUsuario` (`NomUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
