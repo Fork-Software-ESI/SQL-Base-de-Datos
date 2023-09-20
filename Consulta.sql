@@ -19,5 +19,4 @@ FROM
   
 
   /* CONSULTA NOMBRE Y APELLIDO DEL CHOFER QUE MANEJA EL CAMION QUE TRANSPORTA EL LOTE 2*/
-  π Nombre, Apellido (σ ID_Lote = 2 (Chofer ⨝ (ρ ID_Camion/ID_Camion_lleva_lote, ID_Lote/ID_Lote) (Camion ⨝ Camion_lleva_lote))))
-
+  π Nombre, Apellido (σ ID_Lote = 2 (Chofer ⨝ (ρ ID_Camion/ID_Camion_lleva_lote, ID_Lote/ID_Lote) (Camion ⨝ camion_lleva_lote))));

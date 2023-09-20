@@ -26,7 +26,7 @@ CREATE TABLE Cliente (
 
 CREATE TABLE Usuario (
     NomUsuario VARCHAR(50) NOT NULL UNIQUE,
-    Contrasenia VARCHAR NOT NULL,
+    Contrasenia VARCHAR(255) NOT NULL,
     PRIMARY KEY (NomUsuario)
 );
 
@@ -171,6 +171,7 @@ CREATE TABLE Paquete (
     Descripcion VARCHAR(50) NULL,
     Peso_Kg SMALLINT NOT NULL,
     Estado VARCHAR(50) NOT NULL,
+    Destino VARCHAR(255) NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID)
 );
