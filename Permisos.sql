@@ -11,6 +11,7 @@ GRANT ALL PRIVILEGES ON forksoftware.* TO 'administrador'@'%';
 /* FUNCIONARIO (SIN PERMISOS DE DELETE PORQUE SOLO SE MANEJA BAJA LÓGICA, EN CAMBIO UPDATE PARA EDITAR DELETED_AT) */
 GRANT SELECT, INSERT, UPDATE ON forksoftware.paquete_estante TO 'funcionario_almacen'@'%';
 GRANT SELECT, UPDATE(estado) ON forksoftware.forma TO 'funcionario_almacen'@'%';
+GRANT SELECT, UPDATE(estado) ON forksoftware.Lote_Camion TO 'funcionario_almacen'@'%';
 
 /* GERENTE */
 GRANT SELECT, INSERT, UPDATE ON forksoftware.paquete TO 'gerente_almacen'@'%';
