@@ -69,6 +69,7 @@ CREATE TABLE Chofer_Camion (
     ID_Chofer SMALLINT NOT NULL,
     ID_Camion SMALLINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
+    Estado VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID_Chofer, ID_Camion),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
     FOREIGN KEY (ID_Chofer) REFERENCES Chofer(ID)
