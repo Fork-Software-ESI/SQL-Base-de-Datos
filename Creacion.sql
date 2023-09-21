@@ -1,4 +1,4 @@
-CREATE DATABASE forksoftware;
+CREATE DATABASE IF NOT EXISTS forksoftware;
 
 USE forksoftware;
 
@@ -22,20 +22,6 @@ CREATE TABLE Cliente (
     ID SMALLINT NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID) REFERENCES Persona(ID)
-);
-
-CREATE TABLE Usuario (
-    NomUsuario VARCHAR(50) NOT NULL UNIQUE,
-    Contrasenia VARCHAR(255) NOT NULL,
-    PRIMARY KEY (NomUsuario)
-);
-
-CREATE TABLE Persona_Usuario (
-    ID SMALLINT NOT NULL,
-    NomUsuario VARCHAR(50) NOT NULL,
-    PRIMARY KEY (ID, NomUsuario),
-    FOREIGN KEY (ID) REFERENCES Persona(ID),
-    FOREIGN KEY (NomUsuario) REFERENCES Usuario(NomUsuario)
 );
 
 CREATE TABLE Chofer (
@@ -233,4 +219,12 @@ CREATE TABLE Funcionario_Paquete_Estante(
     PRIMARY KEY (ID_Paquete),
     FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID),
     FOREIGN KEY (ID_Paquete) REFERENCES Paquete_Estante(ID_Paquete)
+);
+
+CREATE TABLE Persona_Usuario (
+    ID_Persona SMALLINT NOT NULL,
+    ID_Usuario SMALLINT NOT NULL,
+    PRIMARY KEY (ID_Persona),
+    FOREIGN KEY (ID_Persona) REFERENCES Persona(ID),
+    FOREIGN KEY (ID_Usuario) REFERENCES users(ID)
 );
