@@ -1,0 +1,50 @@
+-- PRIMERA TRANSACCIÓN
+-- Inicio de la transacción
+START TRANSACTION;
+
+-- Paso 1: Verificar si el paquete existe en el estante de origen
+SELECT @id_paquete := ID_Paquete, @id_almacen_origen := ID_Almacen
+FROM paquete_estante
+WHERE ID_Estante = 1 AND ID_Almacen = 1 LIMIT 1;
+
+-- Paso 2: Si el paquete existe, moverlo al estante de destino
+INSERT INTO paquete_estante (ID_Paquete, ID_Estante, ID_Almacen)
+VALUES (@id_paquete, 2, 1);
+
+-- Paso 3: Actualizar el estante de origen
+UPDATE estante
+SET ID_Almacen = 2
+WHERE ID = 1;
+
+-- Confirmar la transacción
+COMMIT;
+
+-- Si ocurrió algún error, realizar un rollback
+ROLLBACK;
+
+
+
+
+-- SEGUNDA TRANSACCIÓN
+-- Inicio de la transacción
+START TRANSACTION;
+
+-- Paso 1: Verificar si el paquete existe y está en tránsito
+SELECT @id_paquete := ID
+FROM paquete
+WHERE ID = 4 AND Estado = 'En transito' LIMIT 1;
+
+-- Paso 2: Cambiar el estado del paquete a "Entregado"
+UPDATE paquete
+SET Estado = 'Entregado'
+WHERE ID = @id_paquete;
+
+-- Paso 3: Registrar la entrega en un registro de entregas
+INSERT INTO registro_entregas (ID_Paquete, Fecha_Entrega)
+VALUES (@id_paquete, NOW());
+
+-- Confirmar la transacción
+COMMIT;
+
+-- Si ocurrió algún error, realizar un rollback
+ROLLBACK;
