@@ -15,6 +15,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- Volcando datos para la tabla forksoftware.administrador: ~2 rows (aproximadamente)
+use forksoftware;
 INSERT INTO `administrador` (`ID`) VALUES
 	(1),
 	(10);
@@ -157,33 +158,6 @@ INSERT INTO `lote_camion` (`ID_Camion`, `ID_Lote`, `Fecha_Hora_Inicio`, `Estado`
 	(1, 1, '2023-09-12 09:00:00', 'Pendiente'),
 	(1, 2, '2023-09-12 10:20:00', 'Cargado'),
 	(2, 3, '2023-05-12 08:30:00', 'Entregado');
-
--- Volcando datos para la tabla forksoftware.migrations: ~9 rows (aproximadamente)
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-	(1, '2014_10_12_000000_create_users_table', 1),
-	(2, '2014_10_12_100000_create_password_resets_table', 1),
-	(3, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
-	(4, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
-	(5, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
-	(6, '2016_06_01_000004_create_oauth_clients_table', 1),
-	(7, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
-	(8, '2019_08_19_000000_create_failed_jobs_table', 1),
-	(9, '2019_12_14_000001_create_personal_access_tokens_table', 1);
-
--- Volcando datos para la tabla forksoftware.oauth_access_tokens: ~0 rows (aproximadamente)
-
--- Volcando datos para la tabla forksoftware.oauth_auth_codes: ~0 rows (aproximadamente)
-
--- Volcando datos para la tabla forksoftware.oauth_clients: ~2 rows (aproximadamente)
-INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-	(1, NULL, 'Laravel Personal Access Client', 'xp1idrUXl0bzS2XU6GLlotHTUf7w7p7c07ze6gBt', NULL, 'http://localhost', 1, 0, 0, '2023-09-21 07:36:44', '2023-09-21 07:36:44'),
-	(2, NULL, 'Laravel Password Grant Client', 'jSD2D026eKUl8mSOwfLysBlZC2fxMJ5mJvjxxmvu', 'users', 'http://localhost', 0, 1, 0, '2023-09-21 07:36:44', '2023-09-21 07:36:44');
-
--- Volcando datos para la tabla forksoftware.oauth_personal_access_clients: ~1 rows (aproximadamente)
-INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-	(1, 1, '2023-09-21 07:36:44', '2023-09-21 07:36:44');
-
--- Volcando datos para la tabla forksoftware.oauth_refresh_tokens: ~0 rows (aproximadamente)
 
 -- Volcando datos para la tabla forksoftware.paquete: ~6 rows (aproximadamente)
 INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `Estado`, `Destino`) VALUES
