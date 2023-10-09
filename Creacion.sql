@@ -51,6 +51,12 @@ CREATE TABLE Camion (
     PRIMARY KEY (ID)
 );
 
+CREATE TABLE EstadoC (
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    Estado VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
+)
+
 CREATE TABLE Chofer_Camion (
     ID_Chofer SMALLINT NOT NULL,
     ID_Camion SMALLINT NOT NULL,
@@ -58,7 +64,8 @@ CREATE TABLE Chofer_Camion (
     Estado VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID_Chofer, ID_Camion),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
-    FOREIGN KEY (ID_Chofer) REFERENCES Chofer(ID)
+    FOREIGN KEY (ID_Chofer) REFERENCES Chofer(ID),
+    FOREIGN KEY (Estado) REFERENCES EstadoC(Estado)
 );
 
 CREATE TABLE Chofer_Camion_Maneja (
@@ -88,6 +95,12 @@ CREATE TABLE Lote (
     PRIMARY KEY (ID)
 );
 
+CREATE TABLE EstadoL (
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    Estado VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
+)
+
 CREATE TABLE Lote_Camion (
     ID_Camion SMALLINT NOT NULL,
     ID_Lote SMALLINT NOT NULL,
@@ -96,6 +109,7 @@ CREATE TABLE Lote_Camion (
     PRIMARY KEY (ID_Lote),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID)
+    FOREIGN KEY (Estado) REFERENCES EstadoL(Estado)
 );
 
 CREATE TABLE Camion_Lleva_Lote (
@@ -152,6 +166,12 @@ CREATE TABLE Estante (
     FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
 );
 
+CREATE TABLE EstadoP (
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    Estado VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
+)
+
 CREATE TABLE Paquete (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
     ID_Cliente SMALLINT NOT NULL,
@@ -161,7 +181,14 @@ CREATE TABLE Paquete (
     Destino VARCHAR(255) NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID)
+    FOREIGN KEY (Estado) REFERENCES EstadoP(Estado)
 );
+
+CREATE TABLE EstadoF(
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    Estado VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
+)
 
 CREATE TABLE Forma (
     ID_Lote SMALLINT NOT NULL,
@@ -169,7 +196,8 @@ CREATE TABLE Forma (
     Estado VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID_Paquete),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID),
-    FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID)
+    FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID),
+    FOREIGN KEY (Estado) REFERENCES EstadoF(Estado)
 );
 
 CREATE TABLE Paquete_Estante (
