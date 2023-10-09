@@ -251,7 +251,7 @@ CREATE TABLE Funcionario_Paquete_Estante(
 
 CREATE TABLE Persona_Usuario (
     ID_Persona SMALLINT NOT NULL,
-    ID_Usuario SMALLINT NOT NULL,
+    ID_Usuario SMALLINT NOT NULL UNIQUE,
     PRIMARY KEY (ID_Persona),
     FOREIGN KEY (ID_Persona) REFERENCES Persona(ID),
     FOREIGN KEY (ID_Usuario) REFERENCES users(ID)

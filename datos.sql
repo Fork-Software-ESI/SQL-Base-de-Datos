@@ -55,10 +55,17 @@ INSERT INTO `chofer` (`ID`) VALUES
 	(8),
 	(9);
 
+INSERT INTO 'EstadoC' ('ID', 'Estado') VALUES
+	(1, 'Estacionado'),
+	(2, 'En plataforma'),
+	(3, 'Cargado'),
+	(4, 'En transito'),
+	(5, 'Completado');
+
 -- Volcando datos para la tabla forksoftware.chofer_camion: ~2 rows (aproximadamente)
 INSERT INTO `chofer_camion` (`ID_Chofer`, `ID_Camion`, `Fecha_Hora_Inicio`, `Estado`) VALUES
-	(8, 1, '2023-09-12 08:30:05', ''),
-	(9, 2, '2023-05-12 08:00:00', '');
+	(8, 1, '2023-09-12 08:30:05', '4'),
+	(9, 2, '2023-05-12 08:00:00', '5');
 
 -- Volcando datos para la tabla forksoftware.chofer_camion_maneja: ~2 rows (aproximadamente)
 INSERT INTO `chofer_camion_maneja` (`ID_Chofer`, `ID_Camion`, `Fecha_Hora_Fin`) VALUES
@@ -90,14 +97,19 @@ INSERT INTO `estante` (`ID`, `ID_Almacen`) VALUES
 
 -- Volcando datos para la tabla forksoftware.failed_jobs: ~0 rows (aproximadamente)
 
+INSERT INTO 'EstadoF' ('ID', 'Estado') VALUES
+	(1, 'Pendiente'),
+	(2, 'Cargado'),
+	(3, 'Entregado');
+
 -- Volcando datos para la tabla forksoftware.forma: ~6 rows (aproximadamente)
 INSERT INTO `forma` (`ID_Lote`, `ID_Paquete`, `Estado`) VALUES
-	(1, 1, 'Pendiente'),
-	(1, 2, 'Cargado'),
-	(1, 3, 'Cargado'),
-	(2, 4, 'Cargado'),
-	(2, 5, 'Cargado'),
-	(3, 6, 'Entregado');
+	(1, 1, 1),
+	(1, 2, 2),
+	(1, 3, 2),
+	(2, 4, 2),
+	(2, 5, 2),
+	(3, 6, 3);
 
 -- Volcando datos para la tabla forksoftware.funcionario_almacen: ~2 rows (aproximadamente)
 INSERT INTO `funcionario_almacen` (`ID`) VALUES
@@ -153,20 +165,30 @@ INSERT INTO `lote` (`ID`, `Descripcion`, `Peso_Kg`) VALUES
 	(2, NULL, 17),
 	(3, NULL, 30);
 
+INSERT INTO 'EstadoL' ('ID', 'Estado') VALUES
+	(1, 'Pendiente'),
+	(2, 'Cargado'),
+	(3, 'Entregado');
+
 -- Volcando datos para la tabla forksoftware.lote_camion: ~3 rows (aproximadamente)
 INSERT INTO `lote_camion` (`ID_Camion`, `ID_Lote`, `Fecha_Hora_Inicio`, `Estado`) VALUES
 	(1, 1, '2023-09-12 09:00:00', 'Pendiente'),
 	(1, 2, '2023-09-12 10:20:00', 'Cargado'),
 	(2, 3, '2023-05-12 08:30:00', 'Entregado');
 
+INSERT INTO 'EstadoP' ('ID', 'Estado') VALUES
+	(1, 'En almacen'),
+	(2, 'En transito'),
+	(3, 'Entregado');
+
 -- Volcando datos para la tabla forksoftware.paquete: ~6 rows (aproximadamente)
 INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `Estado`, `Destino`) VALUES
-	(1, 1, NULL, 1, 'En almacen', 'Charrua 2263'),
-	(2, 1, 'fragil', 2, 'En almacen', 'Luisa Caceres 3600'),
-	(3, 1, NULL, 5, 'En almacen', 'Carlos Anaya 2963'),
-	(4, 2, 'quimicos', 2, 'En transito', 'Cagancha 2063'),
-	(5, 2, NULL, 15, 'En transito', 'Miguelete 2259'),
-	(6, 11, NULL, 30, 'Entregado', 'Barroso 3725');
+	(1, 1, NULL, 1, 1, 'Charrua 2263'),
+	(2, 1, 'fragil', 2, 1, 'Luisa Caceres 3600'),
+	(3, 1, NULL, 5, 1, 'Carlos Anaya 2963'),
+	(4, 2, 'quimicos', 2, 2, 'Cagancha 2063'),
+	(5, 2, NULL, 15, 2, 'Miguelete 2259'),
+	(6, 11, NULL, 30, 3, 'Barroso 3725');
 
 -- Volcando datos para la tabla forksoftware.paquete_estante: ~1 rows (aproximadamente)
 INSERT INTO `paquete_estante` (`ID_Paquete`, `ID_Estante`, `ID_Almacen`) VALUES
