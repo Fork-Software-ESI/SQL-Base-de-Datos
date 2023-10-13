@@ -61,12 +61,12 @@ CREATE TABLE Chofer_Camion (
     ID_Chofer SMALLINT NOT NULL,
     ID_Camion SMALLINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
-    Estado VARCHAR(50) NOT NULL,
+    ID_Estado SMALLINT NOT NULL,
     PRIMARY KEY (ID_Chofer, ID_Camion),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
     FOREIGN KEY (ID_Chofer) REFERENCES Chofer(ID),
-    FOREIGN KEY (Estado) REFERENCES EstadoC(Estado)
-);
+    FOREIGN KEY (ID_Estado) REFERENCES EstadoC(ID)
+    );
 
 CREATE TABLE Chofer_Camion_Maneja (
     ID_Chofer SMALLINT NOT NULL,
@@ -105,12 +105,12 @@ CREATE TABLE Lote_Camion (
     ID_Camion SMALLINT NOT NULL,
     ID_Lote SMALLINT NOT NULL,
     Fecha_Hora_Inicio DATETIME NOT NULL,
-    Estado VARCHAR(50) NOT NULL,
+    ID_Estado SMALLINT NOT NULL,
     PRIMARY KEY (ID_Lote),
     FOREIGN KEY (ID_Camion) REFERENCES Camion(ID),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID)
-    FOREIGN KEY (Estado) REFERENCES EstadoL(Estado)
-);
+    FOREIGN KEY (ID_Estado) REFERENCES EstadoL(ID)
+    );
 
 CREATE TABLE Camion_Lleva_Lote (
     ID_Lote SMALLINT NOT NULL,
@@ -177,12 +177,12 @@ CREATE TABLE Paquete (
     ID_Cliente SMALLINT NOT NULL,
     Descripcion VARCHAR(50) NULL,
     Peso_Kg SMALLINT NOT NULL,
-    Estado VARCHAR(50) NOT NULL,
+    ID_Estado SMALLINT NOT NULL,
     Destino VARCHAR(255) NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID)
-    FOREIGN KEY (Estado) REFERENCES EstadoP(Estado)
-);
+    FOREIGN KEY (ID_Estado) REFERENCES EstadoP(ID)
+    );
 
 CREATE TABLE EstadoF(
     ID SMALLINT NOT NULL AUTO_INCREMENT,
@@ -193,11 +193,11 @@ CREATE TABLE EstadoF(
 CREATE TABLE Forma (
     ID_Lote SMALLINT NOT NULL,
     ID_Paquete SMALLINT NOT NULL,
-    Estado VARCHAR(50) NOT NULL,
+    ID_Estado SMALLINT NOT NULL,    
     PRIMARY KEY (ID_Paquete),
     FOREIGN KEY (ID_Lote) REFERENCES Lote(ID),
     FOREIGN KEY (ID_Paquete) REFERENCES Paquete(ID),
-    FOREIGN KEY (Estado) REFERENCES EstadoF(Estado)
+    FOREIGN KEY (ID_Estado) REFERENCES EstadoF(ID)
 );
 
 CREATE TABLE Paquete_Estante (
