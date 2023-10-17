@@ -182,13 +182,13 @@ INSERT INTO `EstadoP` (`ID`, `Estado`) VALUES
 	(3, 'Entregado');
 
 -- Volcando datos para la tabla forksoftware.paquete: ~6 rows (aproximadamente)
-INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `ID_Estado`, `Destino`) VALUES
-	(1, 1, NULL, 1, 1, 'Charrua 2263'),
-	(2, 1, 'fragil', 2, 1, 'Luisa Caceres 3600'),
-	(3, 1, NULL, 5, 1, 'Carlos Anaya 2963'),
-	(4, 2, 'quimicos', 2, 2, 'Cagancha 2063'),
-	(5, 2, NULL, 15, 2, 'Miguelete 2259'),
-	(6, 11, NULL, 30, 3, 'Barroso 3725');
+INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `ID_Estado`, `Destino`, `Codigo`) VALUES
+	(1, 1, NULL, 1, 1, 'Charrua 2263', '#89gnf'),
+	(2, 1, 'fragil', 2, 1, 'Luisa Caceres 3600', '#31nd9'),
+	(3, 1, NULL, 5, 1, 'Carlos Anaya 2963', '#an93m'),
+	(4, 2, 'quimicos', 2, 2, 'Cagancha 2063', '#012n9'),
+	(5, 2, NULL, 15, 2, 'Miguelete 2259', '#lamf4'),
+	(6, 11, NULL, 30, 3, 'Barroso 3725', '#m4n3m');
 
 -- Volcando datos para la tabla forksoftware.paquete_estante: ~1 rows (aproximadamente)
 INSERT INTO `paquete_estante` (`ID_Paquete`, `ID_Estante`, `ID_Almacen`) VALUES
