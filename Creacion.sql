@@ -12,10 +12,11 @@ CREATE TABLE Persona (
 );
 
 CREATE TABLE Persona_Telefono (
-    ID SMALLINT NOT NULL,
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    ID_Persona SMALLINT NOT NULL,
     Telefono VARCHAR(50) NOT NULL,
-    PRIMARY KEY (ID, Telefono),
-    FOREIGN KEY (ID) REFERENCES Persona(ID)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID_Persona) REFERENCES Persona(ID)
 );
 
 CREATE TABLE Cliente (

@@ -213,18 +213,18 @@ INSERT INTO `persona` (`ID`, `CI`, `Nombre`, `Apellido`, `Correo`) VALUES
 -- Volcando datos para la tabla forksoftware.personal_access_tokens: ~0 rows (aproximadamente)
 
 -- Volcando datos para la tabla forksoftware.persona_telefono: ~11 rows (aproximadamente)
-INSERT INTO `persona_telefono` (`ID`, `Telefono`) VALUES
-	(1, '+1-734-296-2438'),
-	(2, '+1.380.395.5673'),
-	(3, '1-262-806-3865'),
-	(4, '385-379-0875'),
-	(5, '815-756-8497'),
-	(6, '+1.412.485.2736'),
-	(7, '510.594.7951'),
-	(8, '1-602-574-4465'),
-	(9, '+1-463-212-1604'),
-	(10, '+17434985158'),
-	(11, '(984) 643-7858');
+INSERT INTO `persona_telefono` (`ID`, `ID_Persona`, `Telefono`) VALUES
+	(1, 1, '+1-734-296-2438'),
+	(2, 2, '+1.380.395.5673'),
+	(3, 3, '1-262-806-3865'),
+	(4, 4, '385-379-0875'),
+	(5, 5, '815-756-8497'),
+	(6, 6, '+1.412.485.2736'),
+	(7, 7, '510.594.7951'),
+	(8, 8, '1-602-574-4465'),
+	(9, 9, '+1-463-212-1604'),
+	(10, 10, '+17434985158'),
+	(11, 11, '(984) 643-7858');
 
 -- Volcando datos para la tabla forksoftware.persona_usuario: ~11 rows (aproximadamente)
 INSERT INTO `persona_usuario` (`ID_Persona`, `ID_Usuario`) VALUES
