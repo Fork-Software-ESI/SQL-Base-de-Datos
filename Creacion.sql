@@ -89,11 +89,19 @@ CREATE TABLE Almacen (
     PRiMARY KEY (ID)
 );
 
+CREATE TABLE EstadoLT (
+    ID SMALLINT NOT NULL AUTO_INCREMENT,
+    Estado VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
 CREATE TABLE Lote (
     ID SMALLINT NOT NULL AUTO_INCREMENT,
     Descripcion VARCHAR(50) NULL,
     Peso_Kg SMALLINT NOT NULL,
-    PRIMARY KEY (ID)
+    ID_Estado SMALLINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID_Estado) REFERENCES EstadoLT(ID)
 );
 
 CREATE TABLE EstadoL (
@@ -249,6 +257,17 @@ CREATE TABLE Funcionario_Paquete_Estante(
     PRIMARY KEY (ID_Paquete),
     FOREIGN KEY (ID_Funcionario) REFERENCES Funcionario_Almacen(ID),
     FOREIGN KEY (ID_Paquete) REFERENCES Paquete_Estante(ID_Paquete)
+);
+CREATE TABLE users (
+    ID SMALLINT(6) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    remember_token VARCHAR(100) DEFAULT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    deleted_at TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY (ID),
+    UNIQUE KEY users_username_unique (username)
 );
 
 CREATE TABLE Persona_Usuario (
