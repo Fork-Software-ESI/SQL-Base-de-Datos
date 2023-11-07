@@ -159,11 +159,16 @@ INSERT INTO `gerente_paquete` (`ID_Gerente`, `ID_Paquete`) VALUES
 	(7, 5),
 	(7, 6);
 
+INSERT INTO `estadolt` (`ID`, `Estado`) VALUES
+	(1, 'Pendiente'),
+	(2, 'Cargado'),
+	(3, 'Entregado');
+
 -- Volcando datos para la tabla forksoftware.lote: ~3 rows (aproximadamente)
-INSERT INTO `lote` (`ID`, `Descripcion`, `Peso_Kg`) VALUES
-	(1, NULL, 8),
-	(2, NULL, 17),
-	(3, NULL, 30);
+INSERT INTO `lote` (`ID`, `Descripcion`, `Peso_Kg`, `ID_Estado`) VALUES
+	(1, NULL, 8, 1),
+	(2, NULL, 17, 2),
+	(3, NULL, 30, 3);
 
 INSERT INTO `EstadoL` (`ID`, `Estado`) VALUES
 	(1, 'Pendiente'),
@@ -178,17 +183,18 @@ INSERT INTO `lote_camion` (`ID_Camion`, `ID_Lote`, `Fecha_Hora_Inicio`, `ID_Esta
 
 INSERT INTO `EstadoP` (`ID`, `Estado`) VALUES
 	(1, 'En almacen'),
-	(2, 'En transito'),
-	(3, 'Entregado');
+	(2, 'En lote'),
+	(3, 'En transito'),
+	(4, 'Entregado');
 
 -- Volcando datos para la tabla forksoftware.paquete: ~6 rows (aproximadamente)
 INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `ID_Estado`, `Destino`, `Codigo`) VALUES
 	(1, 1, NULL, 1, 1, 'Charrua 2263', '#89gnf'),
 	(2, 1, 'fragil', 2, 1, 'Luisa Caceres 3600', '#31nd9'),
-	(3, 1, NULL, 5, 1, 'Carlos Anaya 2963', '#an93m'),
+	(3, 1, NULL, 5, 2, 'Carlos Anaya 2963', '#an93m'),
 	(4, 2, 'quimicos', 2, 2, 'Cagancha 2063', '#012n9'),
-	(5, 2, NULL, 15, 2, 'Miguelete 2259', '#lamf4'),
-	(6, 11, NULL, 30, 3, 'Barroso 3725', '#m4n3m');
+	(5, 2, NULL, 15, 3, 'Miguelete 2259', '#lamf4'),
+	(6, 11, NULL, 30, 4, 'Barroso 3725', '#m4n3m');
 
 -- Volcando datos para la tabla forksoftware.paquete_estante: ~1 rows (aproximadamente)
 INSERT INTO `paquete_estante` (`ID_Paquete`, `ID_Estante`, `ID_Almacen`) VALUES
