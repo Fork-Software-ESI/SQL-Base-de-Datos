@@ -516,9 +516,9 @@ CREATE TABLE IF NOT EXISTS `lote` (
 
 -- Volcando datos para la tabla forksoftware.lote: ~3 rows (aproximadamente)
 INSERT INTO `lote` (`ID`, `Descripcion`, `Peso_Kg`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, NULL, 8, NULL, 1, '2023-10-30 07:00:19', '2023-10-30 07:00:19'),
-	(2, NULL, 17, NULL, 2, '2023-10-30 07:00:39', '2023-10-30 07:00:39'),
-	(3, 'Algo', 100, NULL, 3, '2023-10-30 05:36:55', NULL),
+	(1, NULL, 8, 1, '2023-10-30 07:00:19', '2023-10-30 07:00:19', NULL),
+	(2, NULL, 17, 2, '2023-10-30 07:00:39', '2023-10-30 07:00:39', NULL),
+	(3, 'Algo', 100, 3, '2023-10-30 05:36:55', '2023-10-30 05:36:55', NULL),
 	(4, 'Tecnología', 50, 3, '2023-10-30 01:28:59', '2023-10-30 01:28:59', '2023-10-29 22:48:41');
 
 -- Volcando estructura para tabla forksoftware.lote_camion
