@@ -281,7 +281,7 @@ INSERT INTO `estadop` (`ID`, `Estado`, `created_at`, `updated_at`, `deleted_at`)
 
 -- Volcando estructura para tabla forksoftware.estante
 CREATE TABLE IF NOT EXISTS `estante` (
-  `ID` smallint(6) NOT NULL,
+  `ID` smallint(6) NOT NULL AUTO_INCREMENT,
   `ID_Almacen` smallint(6) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -511,7 +511,7 @@ CREATE TABLE IF NOT EXISTS `lote` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_Estado` (`ID_Estado`),
-  CONSTRAINT `lote_ibfk_1` FOREIGN KEY (`ID_Estado`) REFERENCES `estadol` (`ID`)
+  CONSTRAINT `lote_ibfk_1` FOREIGN KEY (`ID_Estado`) REFERENCES `estadolt` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla forksoftware.lote: ~3 rows (aproximadamente)
