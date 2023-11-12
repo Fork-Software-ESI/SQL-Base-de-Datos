@@ -112,9 +112,9 @@ INSERT INTO `forma` (`ID_Lote`, `ID_Paquete`, `ID_Estado`) VALUES
 	(3, 6, 3);
 
 -- Volcando datos para la tabla forksoftware.funcionario_almacen: ~2 rows (aproximadamente)
-INSERT INTO `funcionario_almacen` (`ID`) VALUES
-	(3),
-	(4);
+INSERT INTO `funcionario_almacen` (`ID`, `ID_Almacen`) VALUES
+	(3, 1),
+	(4, 3);
 
 -- Volcando datos para la tabla forksoftware.funcionario_forma: ~6 rows (aproximadamente)
 INSERT INTO `funcionario_forma` (`ID_Funcionario`, `ID_Paquete`) VALUES

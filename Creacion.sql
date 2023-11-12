@@ -130,8 +130,10 @@ CREATE TABLE Camion_Lleva_Lote (
 
 CREATE TABLE Funcionario_Almacen (
     ID SMALLINT NOT NULL,
+    ID_Almacen SMALLINT NOT NULL,
     PRIMARY KEY (ID),
-    FOREIGN KEY (ID) REFERENCES Persona(ID)
+    FOREIGN KEY (ID) REFERENCES Persona(ID),
+    FOREIGN KEY (ID_Almacen) REFERENCES Almacen(ID)
 );
 
 CREATE TABLE Plataforma (

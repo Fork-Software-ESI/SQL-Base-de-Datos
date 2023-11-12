@@ -351,17 +351,19 @@ INSERT INTO `forma` (`ID_Lote`, `ID_Paquete`, `ID_Estado`, `created_at`, `update
 -- Volcando estructura para tabla forksoftware.funcionario_almacen
 CREATE TABLE IF NOT EXISTS `funcionario_almacen` (
   `ID` smallint(6) NOT NULL,
+  `ID_Almacen` smallint(6) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `funcionario_almacen_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `persona` (`ID`)
+  CONSTRAINT `funcionario_almacen_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `persona` (`ID`),
+  CONSTRAINT `funcionario_almacen_ibfk_2` FOREIGN KEY (`ID_Almacen`) REFERENCES `almacen` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla forksoftware.funcionario_almacen: ~2 rows (aproximadamente)
-INSERT INTO `funcionario_almacen` (`ID`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(3, NULL, NULL, NULL),
-	(4, NULL, NULL, NULL);
+INSERT INTO `funcionario_almacen` (`ID`, `ID_Almacen`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(3, 1, NULL, NULL, NULL),
+	(4, 3, NULL, NULL, NULL);
 
 -- Volcando estructura para tabla forksoftware.funcionario_forma
 CREATE TABLE IF NOT EXISTS `funcionario_forma` (
