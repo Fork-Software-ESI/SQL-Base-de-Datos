@@ -506,7 +506,6 @@ INSERT INTO `estadolt` (`ID`, `Estado`, `created_at`, `updated_at`, `deleted_at`
 CREATE TABLE IF NOT EXISTS `lote` (
   `ID` smallint(6) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(50) DEFAULT NULL,
-  `Peso_Kg` smallint(6) NOT NULL,
   `ID_Estado` smallint(6) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -517,11 +516,11 @@ CREATE TABLE IF NOT EXISTS `lote` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla forksoftware.lote: ~3 rows (aproximadamente)
-INSERT INTO `lote` (`ID`, `Descripcion`, `Peso_Kg`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, NULL, 8, 1, '2023-10-30 07:00:19', '2023-10-30 07:00:19', NULL),
-	(2, NULL, 17, 2, '2023-10-30 07:00:39', '2023-10-30 07:00:39', NULL),
-	(3, 'Algo', 100, 3, '2023-10-30 05:36:55', '2023-10-30 05:36:55', NULL),
-	(4, 'Tecnología', 50, 3, '2023-10-30 01:28:59', '2023-10-30 01:28:59', '2023-10-29 22:48:41');
+INSERT INTO `lote` (`ID`, `Descripcion`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, NULL, 1, '2023-10-30 07:00:19', '2023-10-30 07:00:19', NULL),
+	(2, NULL, 2, '2023-10-30 07:00:39', '2023-10-30 07:00:39', NULL),
+	(3, 'Algo', 3, '2023-10-30 05:36:55', '2023-10-30 05:36:55', NULL),
+	(4, 'Tecnología', 3, '2023-10-30 01:28:59', '2023-10-30 01:28:59', '2023-10-29 22:48:41');
 
 -- Volcando estructura para tabla forksoftware.lote_camion
 CREATE TABLE IF NOT EXISTS `lote_camion` (

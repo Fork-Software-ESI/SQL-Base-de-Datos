@@ -165,10 +165,10 @@ INSERT INTO `estadolt` (`ID`, `Estado`) VALUES
 	(3, 'Entregado');
 
 -- Volcando datos para la tabla forksoftware.lote: ~3 rows (aproximadamente)
-INSERT INTO `lote` (`ID`, `Descripcion`, `Peso_Kg`, `ID_Estado`) VALUES
-	(1, NULL, 8, 1),
-	(2, NULL, 17, 2),
-	(3, NULL, 30, 3);
+INSERT INTO `lote` (`ID`, `Descripcion`, `ID_Estado`) VALUES
+	(1, NULL, 1),
+	(2, NULL, 2),
+	(3, NULL, 3);
 
 INSERT INTO `EstadoL` (`ID`, `Estado`) VALUES
 	(1, 'Pendiente'),
