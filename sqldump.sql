@@ -521,13 +521,12 @@ CREATE TABLE IF NOT EXISTS `lote` (
   CONSTRAINT `lote_ibfk_1` FOREIGN KEY (`ID_Estado`) REFERENCES `estadolt` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.lote: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.lote: ~3 rows (aproximadamente)
 INSERT INTO `lote` (`ID`, `Descripcion`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, NULL, 1, '2023-10-30 07:00:19', '2023-10-30 07:00:19', NULL),
-	(2, NULL, 1, '2023-10-30 07:00:39', '2023-10-30 07:00:39', NULL),
-	(3, 'Algo', 1, '2023-10-30 05:36:55', '2023-10-30 05:36:55', NULL),
-	(4, 'Tecnología', 1, '2023-10-30 01:28:59', '2023-10-30 01:28:59', NULL),
-	(5, 'Santi', 1, '2023-11-13 00:57:41', '2023-11-13 00:57:42', NULL);
+	(2, NULL, 2, '2023-10-30 07:00:39', '2023-10-30 07:00:39', NULL),
+	(3, 'Algo', 3, '2023-10-30 05:36:55', '2023-10-30 05:36:55', NULL),
+	(4, 'Tecnología', 3, '2023-10-30 01:28:59', '2023-10-30 01:28:59', '2023-10-29 22:48:41');
 
 -- Volcando estructura para tabla forksoftware.lote_camion
 CREATE TABLE IF NOT EXISTS `lote_camion` (

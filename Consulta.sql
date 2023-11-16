@@ -20,3 +20,32 @@ FROM
 
   /* CONSULTA NOMBRE Y APELLIDO DEL CHOFER QUE MANEJA EL CAMION QUE TRANSPORTA EL LOTE 2*/
   π Nombre, Apellido (σ ID_Lote = 2 (Chofer ⨝ (ρ ID_Camion/ID_Camion_lleva_lote, ID_Lote/ID_Lote) (Camion ⨝ camion_lleva_lote))));
+
+  /* Consultas tercer entrega*/
+  
+  
+  /* Vista*/
+CREATE VIEW Cliente_Info AS
+SELECT P.ID AS Persona_ID, P.CI, P.Nombre, P.Apellido, P.Correo, 'Cliente' AS Tipo
+FROM Persona P
+JOIN Cliente C ON P.ID = C.ID;
+ 
+ 
+ /* join entre 4 tablas*/
+ SELECT 
+    P.ID AS Persona_ID,
+    P.CI,
+    P.Nombre,
+    P.Apellido,
+    P.Correo,
+    CASE 
+        WHEN C.ID IS NOT NULL THEN 'Cliente'
+        WHEN Ch.ID IS NOT NULL THEN 'Chofer'
+        ELSE 'N/A'
+    END AS Tipo,
+    TL.Tipo AS Tipo_Libreta
+FROM Persona P
+LEFT JOIN Cliente C ON P.ID = C.ID
+LEFT JOIN Chofer Ch ON P.ID = Ch.ID
+LEFT JOIN Chofer_Tipo_Libreta CTL ON Ch.ID = CTL.ID
+LEFT JOIN Tipo_Libreta TL ON CTL.Tipo = TL.Tipo;
