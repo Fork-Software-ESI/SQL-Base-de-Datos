@@ -46,12 +46,12 @@ CREATE TABLE IF NOT EXISTS `almacen` (
 
 -- Volcando datos para la tabla forksoftware.almacen: ~6 rows (aproximadamente)
 INSERT INTO `almacen` (`ID`, `Direccion`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Bv Artigas 2053', NULL, NULL, NULL),
-	(2, 'Aparicio Saravia 1011', NULL, NULL, NULL),
-	(3, 'Palmar 6666', NULL, NULL, NULL),
-	(4, 'Bv Artigas 2053', NULL, NULL, NULL),
-	(5, 'Aparicio Saravia 1011', NULL, NULL, NULL),
-	(6, 'Palmar 6666', NULL, NULL, NULL);
+	(1, 'Bv Artigas, 2053, Montevideo', NULL, NULL, NULL),
+	(2, 'Aparicio Saravia, 1011, Montevideo', NULL, NULL, NULL),
+	(3, 'Palmar, 6666, Montevideo', NULL, NULL, NULL),
+	(4, 'Bv Artigas, 2053, Montevideo', NULL, NULL, NULL),
+	(5, 'Aparicio Saravia, 1011, Montevideo', NULL, NULL, NULL),
+	(6, 'Palmar, 6666, Montevideo', NULL, NULL, NULL);
 
 -- Volcando estructura para tabla forksoftware.camion
 CREATE TABLE IF NOT EXISTS `camion` (
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `camion_lleva_lote` (
   CONSTRAINT `camion_lleva_lote_ibfk_1` FOREIGN KEY (`ID_Lote`) REFERENCES `lote_camion` (`ID_Lote`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.camion_lleva_lote: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.camion_lleva_lote: ~2 rows (aproximadamente)
 INSERT INTO `camion_lleva_lote` (`ID_Lote`, `Fecha_Hora_Fin`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, '2023-09-12 15:40:00', NULL, '2023-10-30 07:00:39', '2023-10-30 07:00:39'),
 	(3, '2023-05-12 11:15:00', NULL, NULL, NULL);
@@ -158,8 +158,8 @@ CREATE TABLE IF NOT EXISTS `chofer_camion` (
 
 -- Volcando datos para la tabla forksoftware.chofer_camion: ~2 rows (aproximadamente)
 INSERT INTO `chofer_camion` (`ID_Chofer`, `ID_Camion`, `Fecha_Hora_Inicio`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(8, 1, '2023-09-12 08:30:05', 5, NULL, NULL, NULL),
-	(9, 2, '2023-05-12 08:00:00', 2, NULL, NULL, '2023-10-31 00:52:33');
+	(8, 1, '2023-09-12 08:30:05', 2, '2023-11-14 05:04:32', '2023-11-14 08:07:50', NULL),
+	(9, 2, '2023-11-12 20:09:30', 2, NULL, NULL, NULL);
 
 -- Volcando estructura para tabla forksoftware.chofer_camion_maneja
 CREATE TABLE IF NOT EXISTS `chofer_camion_maneja` (
@@ -262,6 +262,22 @@ INSERT INTO `estadol` (`ID`, `Estado`, `created_at`, `updated_at`, `deleted_at`)
 	(2, 'Cargado', NULL, NULL, NULL),
 	(3, 'Entregado', NULL, NULL, NULL);
 
+-- Volcando estructura para tabla forksoftware.estadolt
+CREATE TABLE IF NOT EXISTS `estadolt` (
+  `ID` smallint(6) NOT NULL AUTO_INCREMENT,
+  `Estado` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla forksoftware.estadolt: ~3 rows (aproximadamente)
+INSERT INTO `estadolt` (`ID`, `Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Pendiente', NULL, NULL, NULL),
+	(2, 'Cargado', NULL, NULL, NULL),
+	(3, 'Entregado', NULL, NULL, NULL);
+
 -- Volcando estructura para tabla forksoftware.estadop
 CREATE TABLE IF NOT EXISTS `estadop` (
   `ID` smallint(6) NOT NULL AUTO_INCREMENT,
@@ -270,13 +286,13 @@ CREATE TABLE IF NOT EXISTS `estadop` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.estadop: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.estadop: ~4 rows (aproximadamente)
 INSERT INTO `estadop` (`ID`, `Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'En almacen', NULL, NULL, NULL),
-  (2, 'En lote', NULL, NULL, NULL),
-  (3, 'En transito', NULL, NULL, NULL),
+	(2, 'En lote', NULL, NULL, NULL),
+	(3, 'En transito', NULL, NULL, NULL),
 	(4, 'Entregado', NULL, NULL, NULL);
 
 -- Volcando estructura para tabla forksoftware.estante
@@ -289,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `estante` (
   PRIMARY KEY (`ID`,`ID_Almacen`),
   KEY `ID_Almacen` (`ID_Almacen`),
   CONSTRAINT `estante_ibfk_1` FOREIGN KEY (`ID_Almacen`) REFERENCES `almacen` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla forksoftware.estante: ~9 rows (aproximadamente)
 INSERT INTO `estante` (`ID`, `ID_Almacen`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -334,19 +350,20 @@ CREATE TABLE IF NOT EXISTS `forma` (
   CONSTRAINT `forma_ibfk_3` FOREIGN KEY (`ID_Estado`) REFERENCES `estadof` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.forma: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.forma: ~12 rows (aproximadamente)
 INSERT INTO `forma` (`ID_Lote`, `ID_Paquete`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 1, NULL, '2023-10-30 06:47:55', '2023-10-30 06:47:55'),
-	(1, 2, 2, NULL, '2023-10-30 06:47:55', '2023-10-30 06:47:55'),
-	(1, 3, 2, NULL, '2023-10-30 06:47:55', '2023-10-30 06:47:55'),
-	(2, 4, 2, NULL, '2023-10-30 07:00:39', '2023-10-30 07:00:39'),
-	(2, 5, 2, NULL, '2023-10-30 07:00:39', '2023-10-30 07:00:39'),
-	(3, 6, 3, NULL, NULL, NULL),
+	(1, 1, 2, '2023-11-13 04:31:33', '2023-11-14 05:56:31', NULL),
+	(1, 2, 2, '2023-11-13 04:31:35', '2023-10-30 06:47:55', NULL),
+	(1, 3, 2, NULL, '2023-10-30 06:47:55', NULL),
+	(3, 4, 2, NULL, '2023-10-30 07:00:39', NULL),
+	(3, 5, 2, NULL, '2023-11-13 23:30:08', NULL),
+	(3, 6, 3, NULL, '2023-11-16 02:20:26', '2023-11-16 02:20:26'),
 	(4, 7, 1, '2023-10-30 01:46:58', '2023-10-30 01:46:58', NULL),
 	(4, 8, 1, '2023-10-30 01:47:43', '2023-10-30 01:47:43', NULL),
 	(4, 9, 1, '2023-10-30 01:48:49', '2023-10-30 01:48:49', NULL),
-	(4, 10, 1, '2023-10-30 01:49:31', '2023-10-30 04:33:21', '2023-10-30 04:33:21'),
-	(3, 11, 1, '2023-10-30 01:52:04', '2023-10-30 01:52:04', NULL);
+	(1, 10, 1, '2023-11-13 09:52:57', '2023-11-13 09:52:57', NULL),
+	(3, 11, 1, '2023-10-30 01:52:04', '2023-10-30 01:52:04', NULL),
+	(1, 13, 2, '2023-11-14 06:53:19', '2023-11-14 06:53:20', NULL);
 
 -- Volcando estructura para tabla forksoftware.funcionario_almacen
 CREATE TABLE IF NOT EXISTS `funcionario_almacen` (
@@ -356,6 +373,7 @@ CREATE TABLE IF NOT EXISTS `funcionario_almacen` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
+  KEY `funcionario_almacen_ibfk_2` (`ID_Almacen`),
   CONSTRAINT `funcionario_almacen_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `persona` (`ID`),
   CONSTRAINT `funcionario_almacen_ibfk_2` FOREIGN KEY (`ID_Almacen`) REFERENCES `almacen` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -363,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `funcionario_almacen` (
 -- Volcando datos para la tabla forksoftware.funcionario_almacen: ~2 rows (aproximadamente)
 INSERT INTO `funcionario_almacen` (`ID`, `ID_Almacen`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(3, 1, NULL, NULL, NULL),
-	(4, 3, NULL, NULL, NULL);
+	(4, 2, NULL, NULL, NULL);
 
 -- Volcando estructura para tabla forksoftware.funcionario_forma
 CREATE TABLE IF NOT EXISTS `funcionario_forma` (
@@ -438,12 +456,13 @@ CREATE TABLE IF NOT EXISTS `gerente_forma` (
 
 -- Volcando datos para la tabla forksoftware.gerente_forma: ~6 rows (aproximadamente)
 INSERT INTO `gerente_forma` (`ID_Gerente`, `ID_Paquete`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(5, 1, NULL, NULL, NULL),
-	(5, 2, NULL, NULL, NULL),
+	(5, 1, '2023-11-13 04:13:32', '2023-11-13 04:16:38', NULL),
+	(5, 2, '2023-11-13 04:13:33', '2023-11-13 04:16:38', '2023-11-13 04:43:36'),
 	(6, 3, NULL, NULL, NULL),
 	(6, 4, NULL, NULL, NULL),
 	(7, 5, NULL, NULL, NULL),
-	(7, 6, NULL, NULL, NULL);
+	(7, 6, NULL, NULL, NULL),
+	(5, 10, '2023-11-13 09:52:57', '2023-11-13 09:52:57', NULL);
 
 -- Volcando estructura para tabla forksoftware.gerente_lote
 CREATE TABLE IF NOT EXISTS `gerente_lote` (
@@ -461,7 +480,7 @@ CREATE TABLE IF NOT EXISTS `gerente_lote` (
 -- Volcando datos para la tabla forksoftware.gerente_lote: ~3 rows (aproximadamente)
 INSERT INTO `gerente_lote` (`ID_Gerente`, `ID_Lote`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(5, 1, NULL, NULL, NULL),
-	(6, 2, NULL, NULL, NULL),
+	(7, 2, NULL, NULL, NULL),
 	(7, 3, NULL, NULL, NULL);
 
 -- Volcando estructura para tabla forksoftware.gerente_paquete
@@ -477,36 +496,22 @@ CREATE TABLE IF NOT EXISTS `gerente_paquete` (
   CONSTRAINT `gerente_paquete_ibfk_2` FOREIGN KEY (`ID_Paquete`) REFERENCES `paquete` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.gerente_paquete: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.gerente_paquete: ~9 rows (aproximadamente)
 INSERT INTO `gerente_paquete` (`ID_Gerente`, `ID_Paquete`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(5, 1, NULL, NULL, NULL),
 	(5, 2, NULL, NULL, NULL),
 	(6, 3, NULL, NULL, NULL),
 	(6, 4, NULL, NULL, NULL),
 	(7, 5, NULL, NULL, NULL),
-	(7, 6, NULL, NULL, NULL);
-
--- Volcando estructura para tabla forksoftware.estadolt 
-CREATE TABLE IF NOT EXISTS `estadolt` (
-  `ID` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Estado` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-);
-
--- Volcando datos para la tabla forksoftware.estadolt: ~3 rows (aproximadamente)
-INSERT INTO `estadolt` (`ID`, `Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-  (1, 'Pendiente', NULL, NULL, NULL),
-  (2, 'Cargado', NULL, NULL, NULL),
-  (3, 'Entregado', NULL, NULL, NULL);
+	(7, 6, NULL, NULL, NULL),
+	(5, 8, '2023-11-15 23:07:54', '2023-11-15 23:07:55', NULL),
+	(5, 10, NULL, NULL, NULL),
+	(5, 13, '2023-11-13 08:06:40', '2023-11-13 08:06:40', NULL);
 
 -- Volcando estructura para tabla forksoftware.lote
 CREATE TABLE IF NOT EXISTS `lote` (
   `ID` smallint(6) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(50) DEFAULT NULL,
-  `Peso_Kg` smallint(6) NOT NULL,
   `ID_Estado` smallint(6) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -514,14 +519,15 @@ CREATE TABLE IF NOT EXISTS `lote` (
   PRIMARY KEY (`ID`),
   KEY `ID_Estado` (`ID_Estado`),
   CONSTRAINT `lote_ibfk_1` FOREIGN KEY (`ID_Estado`) REFERENCES `estadolt` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.lote: ~3 rows (aproximadamente)
-INSERT INTO `lote` (`ID`, `Descripcion`, `Peso_Kg`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, NULL, 8, 1, '2023-10-30 07:00:19', '2023-10-30 07:00:19', NULL),
-	(2, NULL, 17, 2, '2023-10-30 07:00:39', '2023-10-30 07:00:39', NULL),
-	(3, 'Algo', 100, 3, '2023-10-30 05:36:55', '2023-10-30 05:36:55', NULL),
-	(4, 'Tecnología', 50, 3, '2023-10-30 01:28:59', '2023-10-30 01:28:59', '2023-10-29 22:48:41');
+-- Volcando datos para la tabla forksoftware.lote: ~5 rows (aproximadamente)
+INSERT INTO `lote` (`ID`, `Descripcion`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, NULL, 1, '2023-10-30 07:00:19', '2023-10-30 07:00:19', NULL),
+	(2, NULL, 1, '2023-10-30 07:00:39', '2023-10-30 07:00:39', NULL),
+	(3, 'Algo', 1, '2023-10-30 05:36:55', '2023-10-30 05:36:55', NULL),
+	(4, 'Tecnología', 1, '2023-10-30 01:28:59', '2023-10-30 01:28:59', NULL),
+	(5, 'Santi', 1, '2023-11-13 00:57:41', '2023-11-13 00:57:42', NULL);
 
 -- Volcando estructura para tabla forksoftware.lote_camion
 CREATE TABLE IF NOT EXISTS `lote_camion` (
@@ -540,10 +546,13 @@ CREATE TABLE IF NOT EXISTS `lote_camion` (
   CONSTRAINT `lote_camion_ibfk_3` FOREIGN KEY (`ID_Estado`) REFERENCES `estadol` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.lote_camion: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.lote_camion: ~5 rows (aproximadamente)
 INSERT INTO `lote_camion` (`ID_Camion`, `ID_Lote`, `Fecha_Hora_Inicio`, `ID_Estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 2, '2023-09-12 10:20:00', 0, NULL, '2023-10-30 07:00:39', '2023-10-30 07:00:39'),
-	(2, 3, '2023-05-12 08:30:00', 0, NULL, NULL, NULL);
+	(1, 1, '2023-11-15 21:03:01', 1, '2023-11-16 00:03:01', '2023-11-16 00:03:01', NULL),
+	(1, 2, '2023-09-12 10:20:00', 2, NULL, '2023-11-14 04:49:32', '2023-11-15 20:38:08'),
+	(2, 3, '2023-05-12 08:30:00', 2, NULL, '2023-11-14 04:49:14', NULL),
+	(1, 4, '2023-11-13 03:27:22', 2, '2023-11-13 06:27:22', '2023-11-13 06:27:22', NULL),
+	(1, 5, '2023-11-13 04:14:04', 2, '2023-11-13 07:14:04', '2023-11-13 07:14:04', NULL);
 
 -- Volcando estructura para tabla forksoftware.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
@@ -637,7 +646,16 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.oauth_access_tokens: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.oauth_access_tokens: ~8 rows (aproximadamente)
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+	('06ab5e9d15a3321f74f81e0180a3b874f9f5576eecb09ea6638f758e639761dafc4f8d41f51e043c', 1, 7, 'auth_token', '[]', 1, '2023-11-15 08:42:31', '2023-11-15 08:42:31', '2024-05-15 05:42:31'),
+	('1d83db9ba99a3c310343a7c1f75037807bf1e77d8799745e5e31255721e973514130365ae8c623a3', 1, 7, 'auth_token', '[]', 1, '2023-11-15 07:59:23', '2023-11-15 07:59:23', '2024-05-15 04:59:23'),
+	('4ddc15cd43efdaae5285bbca755effd755a921a5b5662202badeb81ae6aaf924441e2fe3d54391b0', 1, 7, 'auth_token', '[]', 1, '2023-11-15 08:27:45', '2023-11-15 08:27:45', '2024-05-15 05:27:45'),
+	('6d0bc4d4a08b7a73943cca46be3f480172b6a3269f3676003a96905d761a5cbe4944e6759ef7f0ee', 1, 7, 'auth_token', '[]', 1, '2023-11-15 08:46:23', '2023-11-15 08:46:23', '2024-05-15 05:46:23'),
+	('7a0e8d424bc95192a3aac4e043c842aecb61462b1157c5cb6f36db6f4175adbe7b4838dccb0d7188', 1, 7, 'auth_token', '[]', 1, '2023-11-15 08:45:15', '2023-11-15 08:45:15', '2024-05-15 05:45:15'),
+	('86756aa00bfb021883fb106b63d715477a498e672102557512c5c32b2e23032e823c29c1b9d46046', 1, 5, 'auth_token', '[]', 1, '2023-11-14 21:51:33', '2023-11-14 21:51:33', '2024-05-14 18:51:33'),
+	('93e224008afddbf9c77c7dd8a6bee90a34046c1ddb7839a3042386a0e68152d57cfa25218eaacd00', 1, 7, 'auth_token', '[]', 1, '2023-11-15 08:27:26', '2023-11-15 08:27:26', '2024-05-15 05:27:26'),
+	('c39bb7643bcc5c684093589f3090209dfc2be808538d0dd5082dd2ceea41f0aa850d99de716b5901', 1, 7, 'auth_token', '[]', 1, '2023-11-15 07:59:29', '2023-11-15 07:59:29', '2024-05-15 04:59:29');
 
 -- Volcando estructura para tabla forksoftware.oauth_auth_codes
 CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
@@ -668,12 +686,14 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_clients_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.oauth_clients: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.oauth_clients: ~3 rows (aproximadamente)
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-	(1, NULL, 'Laravel Personal Access Client', 'nnge9utDtXxXx0oycItYMFeEpAVATZr6tf48PfQU', NULL, 'http://localhost', 1, 0, 0, '2023-10-23 06:05:45', '2023-10-23 06:05:45'),
-	(2, NULL, 'Laravel Password Grant Client', 'X4U5woCI9J6s9HYH6wrZuguJqze9EE6pwSYRmb2j', 'users', 'http://localhost', 0, 1, 0, '2023-10-23 06:05:45', '2023-10-23 06:05:45');
+	(5, NULL, 'Laravel Personal Access Client', 'iPisMZccvaMadGxgQ60HBQYozVp8AssaV4uDgvxk', NULL, 'http://localhost', 1, 0, 0, '2023-11-14 21:50:46', '2023-11-14 21:50:46'),
+	(6, NULL, 'Laravel Password Grant Client', 'AZBt3G8GRKhMm3yBXtmxV5KkAyprsgfP7sumNTFb', 'users', 'http://localhost', 0, 1, 0, '2023-11-14 21:50:46', '2023-11-14 21:50:46'),
+	(7, NULL, 'Laravel Personal Access Client', 'Rq0ycMlu3x2xtGm2DWfj73bg6wUYktCc7POCxmab', NULL, 'http://localhost', 1, 0, 0, '2023-11-15 07:59:10', '2023-11-15 07:59:10'),
+	(8, NULL, 'Laravel Password Grant Client', 'jB45Stx5WrdFZS6U99RAYTg1EHpH3JXVWN3FYzTx', 'users', 'http://localhost', 0, 1, 0, '2023-11-15 07:59:10', '2023-11-15 07:59:10');
 
 -- Volcando estructura para tabla forksoftware.oauth_personal_access_clients
 CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
@@ -682,11 +702,14 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.oauth_personal_access_clients: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.oauth_personal_access_clients: ~3 rows (aproximadamente)
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-	(1, 1, '2023-10-23 06:05:45', '2023-10-23 06:05:45');
+	(1, 1, '2023-10-23 06:05:45', '2023-10-23 06:05:45'),
+	(2, 3, '2023-11-14 21:50:29', '2023-11-14 21:50:29'),
+	(3, 5, '2023-11-14 21:50:46', '2023-11-14 21:50:46'),
+	(4, 7, '2023-11-15 07:59:10', '2023-11-15 07:59:10');
 
 -- Volcando estructura para tabla forksoftware.oauth_refresh_tokens
 CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
@@ -718,21 +741,23 @@ CREATE TABLE IF NOT EXISTS `paquete` (
   KEY `ID_Estado` (`ID_Estado`),
   CONSTRAINT `paquete_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID`),
   CONSTRAINT `paquete_ibfk_2` FOREIGN KEY (`ID_Estado`) REFERENCES `estadop` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.paquete: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.paquete: ~13 rows (aproximadamente)
 INSERT INTO `paquete` (`ID`, `ID_Cliente`, `Descripcion`, `Peso_Kg`, `ID_Estado`, `Destino`, `Codigo`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, NULL, 1, 1, 'Charrua 2263', '#89gnf', NULL, NULL, NULL),
-	(2, 1, 'fragil', 2, 1, 'Luisa Caceres 3600', '#31nd9', NULL, NULL, NULL),
-	(3, 1, NULL, 5, 1, 'Carlos Anaya 2963', '#an93m', NULL, NULL, NULL),
-	(4, 2, 'quimicos', 2, 2, 'Cagancha 2063', '#012n9', NULL, NULL, NULL),
-	(5, 2, NULL, 15, 2, 'Miguelete 2259', '#lamf4', NULL, NULL, NULL),
-	(6, 11, NULL, 30, 3, 'Barroso 3725', '#m4n3m', NULL, NULL, NULL),
-	(7, 1, 'prueba', 70, 4, 'charrua 2263, Montevideo, Uruguay', '0DhNOq', '2023-10-23 06:43:09', '2023-10-30 03:12:58', NULL),
-	(8, 1, 'prueba', 50, 4, 'Charrua 2265, Montevideo, Montevideo', '6ePZv4', '2023-10-26 03:38:44', '2023-10-26 03:38:44', NULL),
-	(9, 1, 'prueba', 50, 3, 'Charrua 0, Montevideo, Montevideo', 'pJWgGf', '2023-10-26 03:40:48', '2023-10-26 03:40:48', NULL),
-	(10, 1, 'prueba', 50, 2, 'Selva Negra 20000, Punta del Este, Maldonado', 'qmhr18', '2023-10-26 03:44:50', '2023-10-30 04:33:21', '2023-10-30 04:33:21'),
-	(11, 1, 'prueba', 50, 3, 'Luisa Caceres 3600, Montevideo', 'SpXt52', '2023-10-26 04:03:13', '2023-10-26 04:03:13', NULL);
+	(1, 1, NULL, 1, 2, 'Charrua, 2275, Montevideo', '#89gnf', NULL, '2023-11-14 05:56:31', NULL),
+	(2, 1, 'fragil', 2, 1, 'Luisa Caceres de Arismendi, 3700, Montevideo', '#31nd9', NULL, NULL, NULL),
+	(3, 1, NULL, 5, 1, 'Ramón González, 146, Tacuarembó', '#an93m', NULL, NULL, NULL),
+	(4, 2, 'quimicos', 2, 2, 'Cagancha, 2063, Montevideo', '#012n9', NULL, NULL, NULL),
+	(5, 2, NULL, 15, 1, 'Miguelete, 2259, Montevideo', '#lamf4', NULL, NULL, NULL),
+	(6, 11, NULL, 30, 3, 'Barroso, 3725, Montevideo', '#m4n3m', NULL, '2023-11-16 02:20:26', '2023-11-16 02:20:26'),
+	(7, 1, 'prueba', 70, 4, 'Charrua, 2250, Montevideo', '0DhNOq', '2023-10-23 06:43:09', '2023-10-30 03:12:58', NULL),
+	(8, 1, 'prueba', 50, 3, 'Charrua, 2265, Montevideo', 'aaaaaa', '2023-10-26 03:38:44', '2023-10-26 03:38:44', NULL),
+	(9, 1, 'prueba', 50, 3, 'Charrua, 2300,  Montevideo', 'pJWgGf', '2023-10-26 03:40:48', '2023-10-26 03:40:48', NULL),
+	(10, 1, 'prueba', 50, 2, 'Selva Negra, 20000, Maldonado', 'qmhr18', '2023-10-26 03:44:50', '2023-10-30 04:33:21', NULL),
+	(11, 1, 'prueba', 50, 3, 'Charrua, 2364, Montevideo', 'SpXt52', '2023-10-26 04:03:13', '2023-11-13 02:34:22', NULL),
+	(12, 11, 'matenmen', 50, 1, 'Luisa Caceres de Arismendi, 3640, Montevideo', 'CN3PZI', '2023-11-13 08:06:19', '2023-11-16 02:20:47', NULL),
+	(13, 11, NULL, 50, 1, 'Luisa Caceres de Arismendi, 3600, Montevideo', 'ENZsk9', '2023-11-13 08:06:40', '2023-11-13 08:06:40', NULL);
 
 -- Volcando estructura para tabla forksoftware.paquete_estante
 CREATE TABLE IF NOT EXISTS `paquete_estante` (
@@ -750,8 +775,8 @@ CREATE TABLE IF NOT EXISTS `paquete_estante` (
 
 -- Volcando datos para la tabla forksoftware.paquete_estante: ~2 rows (aproximadamente)
 INSERT INTO `paquete_estante` (`ID_Paquete`, `ID_Estante`, `ID_Almacen`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 1, NULL, '2023-10-26 06:26:40', '2023-10-29 22:22:49'),
-	(10, 5, 2, '2023-10-26 06:00:17', '2023-10-30 04:33:21', '2023-10-30 04:33:21');
+	(1, 1, 1, NULL, '2023-10-26 06:26:40', NULL),
+	(10, 5, 2, '2023-10-26 06:00:17', '2023-10-30 04:33:21', NULL);
 
 -- Volcando estructura para tabla forksoftware.password_resets
 CREATE TABLE IF NOT EXISTS `password_resets` (
@@ -925,7 +950,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Volcando datos para la tabla forksoftware.users: ~11 rows (aproximadamente)
 INSERT INTO `users` (`ID`, `username`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'superadmin', '$2y$10$UjUsu9EWxkUKsBKiRHzsRerhh0VJgI86FdNMBU1u7ZTok42JyCjR2', NULL, NULL, NULL, NULL),
+	(1, 'superadmin', '$2y$10$UjUsu9EWxkUKsBKiRHzsRerhh0VJgI86FdNMBU1u7ZTok42JyCjR2', 'cl1UOfzyOFi3feZZAu5gjqTL4H9AK0OaJGTanaif213vJbFMuq7BeV03Ksah', NULL, NULL, NULL),
 	(2, 'harold89', '$2y$10$QtWJiphimGZc2Otc/Mf0huwHT9RrmjeUhcgkU.tVmIU7ru3Nysl8G', NULL, NULL, NULL, NULL),
 	(3, 'conor64', '$2y$10$Z9iF8sY99VLyZEuIWBpDs.CbLzfplus5kV1aqC80Pbo45ltgbnwQS', NULL, NULL, NULL, NULL),
 	(4, 'nyah24', '$2y$10$WWOrTVgeBCiGaFxJ1RYKs.okj4NLb70wv2GqH1pPAIgKI5fXH4TjS', NULL, NULL, NULL, NULL),
