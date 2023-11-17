@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 INSERT INTO `administrador` (`ID`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, NULL, NULL, NULL),
 	(10, NULL, NULL, NULL),
-	(16, '2023-11-17 05:21:26', '2023-11-17 07:19:14', '2023-11-17 07:19:14'),
+	(16, '2023-11-17 05:21:26', '2023-11-17 07:19:14', NULL),
 	(17, '2023-11-17 10:04:18', '2023-11-17 10:04:18', NULL);
 
 -- Volcando estructura para tabla forksoftware.almacen
@@ -655,15 +655,18 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla forksoftware.oauth_access_tokens: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla forksoftware.oauth_access_tokens: ~12 rows (aproximadamente)
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('0686f1cce8194e9bec195e83bcee92fe94589992ee6c4422bfe811608f2ac8f7b116266c8ff3118e', 1, 15, 'auth_token', '[]', 1, '2023-11-17 10:02:54', '2023-11-17 10:02:54', '2024-05-17 07:02:54'),
+	('3bfe435b5a8a82f35ee8610501cfca529464e0639ef6492ca8b93688dc533263e4c6d6e29339f5cb', 20, 15, 'auth_token', '[]', 0, '2023-11-17 13:22:27', '2023-11-17 13:22:27', '2024-05-17 10:22:27'),
 	('59178291e4b8b8c8cb56d59a517e268c779afd934856b719d72fd5541f6433f5ce9e93482f55a533', 1, 15, 'auth_token', '[]', 1, '2023-11-17 05:44:14', '2023-11-17 05:44:14', '2024-05-17 02:44:14'),
+	('6bd293c66cc92da62e9633c789f5b8af79172e5350a60eabf6d707d4b112512e962719f62173760d', 20, 15, 'auth_token', '[]', 0, '2023-11-17 13:06:20', '2023-11-17 13:06:20', '2024-05-17 10:06:20'),
 	('877e9065af043b5e4ca7635c5ba2927f8cd51149de1b3583410da936ced4c42234cee57d7a89963a', 28, 15, 'auth_token', '[]', 0, '2023-11-17 11:52:45', '2023-11-17 11:52:45', '2024-05-17 08:52:45'),
 	('96bed0780d62b1ec9f0b6a06572d7a0a8411a6bb37be29694e7ac30a7b9f45eb98c993bbfa9a55cc', 28, 15, 'auth_token', '[]', 0, '2023-11-17 11:31:55', '2023-11-17 11:31:55', '2024-05-17 08:31:55'),
 	('a721a3efce33719b3d2f14921387d943e1e6e976358f598f7c56ed52bcdb4049f44ee208222f5552', 1, 15, 'auth_token', '[]', 0, '2023-11-17 10:39:45', '2023-11-17 10:39:45', '2024-05-17 07:39:45'),
 	('b4e2dd0adb5db5b505d9d560320f47a2f50a9fb2433100d8ab53863d0920a689630104c657c425e3', 29, 15, 'auth_token', '[]', 0, '2023-11-17 12:14:34', '2023-11-17 12:14:34', '2024-05-17 09:14:34'),
 	('d56de4a3914734a38862a4cb3d582e585bedfa2c7f495e4e7159f28a941cf2d0819e5a38bc6df172', 28, 15, 'auth_token', '[]', 0, '2023-11-17 11:32:50', '2023-11-17 11:32:50', '2024-05-17 08:32:50'),
+	('d9eb8bec9580f4f11316d50982a970afbaaa4293f6eb126e36d79ec52fa3f8e8f5990921c257a029', 20, 15, 'auth_token', '[]', 0, '2023-11-17 13:06:57', '2023-11-17 13:06:57', '2024-05-17 10:06:57'),
 	('f63565ca6d9ef9f3fc83046b76406e3b895a58c3f4a6d92010b02d5661b45ccd61d2c3a735664601', 28, 15, 'auth_token', '[]', 0, '2023-11-17 11:44:17', '2023-11-17 11:44:17', '2024-05-17 08:44:17'),
 	('f99373030130c818e9c805e0fd682ad947f4295c1d0ad6c419d9edf60794143a50600fed9ca6a796', 17, 15, 'auth_token', '[]', 1, '2023-11-17 10:12:28', '2023-11-17 10:12:28', '2024-05-17 07:12:28');
 
@@ -781,7 +784,7 @@ CREATE TABLE IF NOT EXISTS `paquete_estante` (
 -- Volcando datos para la tabla forksoftware.paquete_estante: ~3 rows (aproximadamente)
 INSERT INTO `paquete_estante` (`ID_Paquete`, `ID_Estante`, `ID_Almacen`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 1, 1, NULL, '2023-10-26 06:26:40', NULL),
-	(2, 1, 1, '2023-11-17 11:40:31', '2023-11-17 11:43:31', '2023-11-17 11:43:31'),
+	(2, 1, 1, '2023-11-17 11:40:31', '2023-11-17 11:43:31', NULL),
 	(10, 5, 2, '2023-10-26 06:00:17', '2023-10-30 04:33:21', NULL);
 
 -- Volcando estructura para tabla forksoftware.password_resets
